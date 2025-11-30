@@ -1,0 +1,154 @@
+/* ===== CONTENEDOR PRINCIPAL ===== */
+#sobre-container {
+  position: fixed;
+  inset: 0;
+  background: #faf7ef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 99999;
+  animation: fadeIn 1s ease forwards;
+}
+
+/* Exit animation */
+#sobre-container.hidden {
+  animation: fadeOutBlur 1s ease forwards;
+  pointer-events: none;
+}
+
+/* ===== SOBRE ===== */
+.sobre {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+
+  /* 🔥 Se comporta como el ejemplo verde */
+  background-image: url("/assets/sobre/mw-env-middle-layer.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  cursor: pointer;
+  animation: envelopeDrop 1s ease forwards;
+  transform-style: preserve-3d;
+}
+
+/* ===== CAPAS DEL SOBRE ===== */
+
+/* Triángulo superior */
+.arriba {
+  position: absolute;
+  inset: 0;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  transform-origin: top center;
+  transition: transform 1s ease;
+}
+
+/* Triángulo inferior */
+.abajo {
+  position: absolute;
+  inset: 0;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Sello */
+.sello {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: clamp(110px, 18vw, 190px);
+  z-index: 5;
+
+  animation: sealPop .6s ease-out forwards .9s,
+             sealPulse 2.5s infinite ease-in-out 2s;
+}
+
+/* ===== ESTADO ABIERTO ===== */
+.sobre.abierto {
+  animation: zoomReveal 1s ease forwards;
+}
+
+.sobre.abierto .arriba {
+  transform: rotateX(-155deg);
+}
+
+.sobre.abierto .sello {
+  animation: sealHide .5s forwards;
+}
+
+/* ===== FLORES ===== */
+.flor {
+  position: absolute;
+  width: clamp(220px, 28vw, 420px);
+  pointer-events: none;
+  opacity: .92;
+  z-index: 10; /* 🔥 Siempre encima del sobre */
+}
+
+.flor-izq {
+  bottom: 0;
+  left: 0;
+}
+
+.flor-der {
+  top: 0;
+  right: 0;
+}
+
+/* ===== ANIMACIONES ===== */
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+@keyframes fadeOutBlur {
+  from { opacity: 1; filter: blur(0); }
+  to { opacity: 0; filter: blur(20px); transform: scale(1.2); }
+}
+
+@keyframes envelopeDrop {
+  from { opacity: 0; transform: translateY(-40px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes sealPop {
+  0% { transform: translate(-50%, -50%) scale(0); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes sealPulse {
+  0%,100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.15); }
+}
+
+@keyframes sealHide {
+  to { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+}
+
+@keyframes zoomReveal {
+  0% { transform: scale(1); filter: blur(0); opacity: 1; }
+  100% { transform: scale(1.35); filter: blur(5px); opacity: 0; }
+}
+
+/* ===== RESPONSIVE PARA MOVIL ===== */
+@media (max-width: 600px) {
+  .sobre {
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+  }
+
+  .sello {
+    width: clamp(100px, 28vw, 150px);
+  }
+
+  .flor {
+    width: clamp(150px, 40vw, 300px);
+  }
+}

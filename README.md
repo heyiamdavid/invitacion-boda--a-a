@@ -1,0 +1,1 @@
+error temporal en el generador de QR
