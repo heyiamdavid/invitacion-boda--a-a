@@ -16,23 +16,17 @@ html, body {
   top: 0;
   left: 0;
   width: 100%;
-
   background: var(--color-primary);
   color: var(--color-light);
-
   border-bottom: 3px solid rgba(255,255,255,0.15);
   box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-
   z-index: 5000;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   opacity: 0;
   transform: translateY(-40px);
   transition: opacity 1s ease, transform 1s ease;
-
   height: 64px;
 }
 
@@ -136,27 +130,20 @@ html, body {
 .mobile-menu {
   position: fixed;
   inset: 0;
-
   background: rgba(58, 83, 44, 0.96);
   backdrop-filter: blur(12px);
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   gap: 26px;
-
   opacity: 0;
   pointer-events: none;
   transform: translateY(-20px);
   transition: opacity .35s ease, transform .35s ease;
-
   z-index: 9999;
-
-  /* 🔥 Evitar desplazamiento lateral */
-  overflow-x: hidden !important;
   overflow-y: auto;
+  overflow-x: hidden !important;
 }
 
 .mobile-menu.show {
@@ -165,33 +152,22 @@ html, body {
   transform: translateY(0);
 }
 
-/* BOTONES DEL MENÚ MOBILE */
 .mobile-menu a {
   width: 85%;
   max-width: 320px;
   padding: 14px 0;
-
   text-align: center;
-  text-decoration: none !important;   /* 🔥 SIN subrayado */
-
+  text-decoration: none !important;
   background: rgba(255, 255, 255, 0.12);
   color: #f7f6ee;
-
   font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0.5px;
-
   border-radius: 50px;
   border: none;
   backdrop-filter: blur(6px);
-
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
-
-  transition: transform 0.25s ease,
-              background 0.3s ease,
-              box-shadow 0.3s ease;
-
-  box-sizing: border-box;
+  transition: transform 0.25s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .mobile-menu a:hover {
@@ -225,35 +201,29 @@ html, body {
 body.menu-open {
   overflow: hidden !important;
 }
+
 /* ==========================================================
-   BOTÓN X – Cerrar Menú
+   ✔ BOTÓN X – Cerrar Menú
    ========================================================== */
+
 .close-menu-btn {
   position: absolute;
   top: 22px;
   right: 22px;
-
   width: 44px;
   height: 44px;
-
   border-radius: 50%;
   border: 2px solid rgba(255,255,255,0.6);
-
   background: rgba(255,255,255,0.15);
   color: #fff;
-
   font-size: 1.6rem;
   font-weight: bold;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
   z-index: 10000;
-
   backdrop-filter: blur(6px);
-
   transition: background .3s ease, transform .25s ease;
 }
 
