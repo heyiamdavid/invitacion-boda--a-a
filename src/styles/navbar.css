@@ -16,10 +16,10 @@ html, body {
   top: 0;
   left: 0;
   width: 100%;
-  background: var(--color-primary);
-  color: var(--color-light);
-  border-bottom: 3px solid rgba(255,255,255,0.15);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  background: var(--color-bg-primary);
+  color: var(--color-primary);
+  border-bottom: 1px solid var(--color-beige);
+  box-shadow: 0 2px 15px rgba(0,0,0,0.08);
   z-index: 5000;
   display: flex;
   justify-content: center;
@@ -49,7 +49,7 @@ html, body {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--color-light);
+  color: var(--color-primary);
   text-decoration: none;
   font-family: 'Cormorant Garamond', serif;
 }
@@ -57,18 +57,20 @@ html, body {
 .brand-logo {
   width: 42px;
   height: 42px;
-  border: 1px solid var(--color-accent);
+  border: 2px solid var(--color-accent);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
   color: var(--color-accent);
+  background: var(--color-light);
 }
 
 .brand-text {
   font-size: 1.2rem;
-  font-weight: 300;
+  font-weight: 600;
+  color: var(--color-primary);
 }
 
 /* DESKTOP LINKS */
@@ -79,7 +81,7 @@ html, body {
 }
 
 .nav-links a {
-  color: var(--color-light);
+  color: var(--color-secondary);
   text-decoration: none;
   font-weight: 600;
   transition: color .3s;
@@ -106,7 +108,7 @@ html, body {
 .burger span {
   width: 28px;
   height: 3px;
-  background: var(--color-light);
+  background: var(--color-primary);
   border-radius: 3px;
   transition: all .3s ease;
 }
@@ -130,7 +132,11 @@ html, body {
 .mobile-menu {
   position: fixed;
   inset: 0;
-  background: rgba(58, 83, 44, 0.96);
+  background: linear-gradient(
+    135deg,
+    rgba(74, 63, 53, 0.97),
+    rgba(107, 87, 68, 0.95)
+  );
   backdrop-filter: blur(12px);
   display: flex;
   flex-direction: column;
@@ -158,22 +164,25 @@ html, body {
   padding: 14px 0;
   text-align: center;
   text-decoration: none !important;
-  background: rgba(255, 255, 255, 0.12);
-  color: #f7f6ee;
+  background: rgba(201, 168, 117, 0.15);
+  color: var(--color-light);
   font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0.5px;
   border-radius: 50px;
-  border: none;
+  border: 2px solid rgba(201, 168, 117, 0.3);
   backdrop-filter: blur(6px);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
-  transition: transform 0.25s ease, background 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
 }
 
-.mobile-menu a:hover {
-  background: rgba(255, 255, 255, 0.22);
+.mobile-menu a:hover,
+.mobile-menu a:active {
+  background: var(--color-accent);
+  color: var(--color-primary);
+  border-color: var(--color-accent);
   transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 12px 30px rgba(201, 168, 117, 0.4);
 }
 
 /* ==========================================================
@@ -213,9 +222,9 @@ body.menu-open {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.6);
-  background: rgba(255,255,255,0.15);
-  color: #fff;
+  border: 2px solid var(--color-accent);
+  background: rgba(201, 168, 117, 0.2);
+  color: var(--color-light);
   font-size: 1.6rem;
   font-weight: bold;
   display: flex;
@@ -224,10 +233,12 @@ body.menu-open {
   cursor: pointer;
   z-index: 10000;
   backdrop-filter: blur(6px);
-  transition: background .3s ease, transform .25s ease;
+  transition: all .3s ease;
 }
 
 .close-menu-btn:hover {
-  background: rgba(255,255,255,0.25);
-  transform: scale(1.05);
+  background: var(--color-accent);
+  color: var(--color-primary);
+  transform: scale(1.1) rotate(90deg);
+  box-shadow: 0 8px 20px rgba(201, 168, 117, 0.4);
 }
