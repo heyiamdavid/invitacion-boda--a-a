@@ -2,14 +2,28 @@ import { useState } from "react";
 export default function Gallery() {
   const images = [
     "/assets/gallery/img1.jpeg",
-    "/assets/gallery/img5.jpeg",
+    "/assets/gallery/img2.jpeg",
     "/assets/gallery/img3.jpeg",
     "/assets/gallery/img4.jpeg",
-    "/assets/gallery/img2.jpeg",
+    "/assets/gallery/img5.jpeg",
     "/assets/gallery/img6.jpeg",
     "/assets/gallery/img7.jpeg",
     "/assets/gallery/img8.jpeg",
-    "/assets/gallery/img9.jpg",
+    "/assets/gallery/img9.jpeg",
+    "/assets/gallery/img10.jpeg",
+    "/assets/gallery/img11.jpeg",
+    "/assets/gallery/img12.jpeg",
+    "/assets/gallery/img13.jpeg",
+    "/assets/gallery/img14.jpeg",
+    "/assets/gallery/img15.jpeg",
+    "/assets/gallery/img16.jpeg",
+    "/assets/gallery/img17.jpeg",
+    "/assets/gallery/img18.jpeg",
+    "/assets/gallery/img19.jpeg",
+    "/assets/gallery/img20.jpeg",
+    "/assets/gallery/img21.jpeg",
+    "/assets/gallery/img22.jpeg",
+    "/assets/gallery/img23.jpeg",
   ];
 
   const [current, setCurrent] = useState(null);
