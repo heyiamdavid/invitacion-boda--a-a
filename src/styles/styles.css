@@ -204,13 +204,13 @@ body.menu-open {
 /* Móviles */
 @media (max-width: 767px) {
   .hero {
-    background-size: 115% auto;
+    background-size: 117% auto;
     background-position: center top;
     padding-bottom: 100px;
   }
   
   .hero-content {
-    max-width: 90%;
+    max-width: 120%;
   }
 }
 
