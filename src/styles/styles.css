@@ -1030,7 +1030,7 @@ footer {
   padding: 40px 20px;
   margin-top: 80px;
   border-top: 3px solid var(--color-accent);
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Great Vibes", cursive;
 }
 
 footer p:first-child {
@@ -1038,13 +1038,11 @@ footer p:first-child {
   opacity: 0.9;
 }
 
-footer p:last-child {
-  font-size: 1.8rem;
-  font-weight: 600;
+.footer-names {
+  font-size: 1.9rem;
   margin-top: 10px;
   color: var(--color-accent);
 }
-
 /* ---------- ESPACIADO GENERAL ---------- */
 
 #main-content {
