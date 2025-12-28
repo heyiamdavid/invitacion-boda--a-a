@@ -22,6 +22,11 @@ export default function Hero() {
         <a href="#confirmacion" className="hero-button">
           Confirmar Asistencia
         </a>
+       <h1 className="hero-title-2">
+        <span className="line-1">Ambos diremos</span>
+        <span className="line-2">"acepto"</span>
+      </h1>
+
       </div>
     </section>
   );

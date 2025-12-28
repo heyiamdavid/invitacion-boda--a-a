@@ -1,5 +1,19 @@
 /* ---------- RESET ---------- */
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@font-face {
+  font-family: "Amsterdam Three";
+  src: url("/assets/fonts/AmsterdamThree.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Catchy Mager";
+  src: url("/assets/fonts/CatchyMager.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -226,13 +240,13 @@ body.menu-open {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 4px 15px rgba(201, 168, 117, 0.3));
+  filter: drop-shadow(5 4px 15px rgba(201, 168, 117, 0.3));
 }
 
 /* Nombres con tipografía elegante tipo script */
 .hero-title {
-  font-family: 'Great Vibes', cursive;
-  font-size: clamp(3rem, 8vw, 5rem);
+  font-family: "Amsterdam Three", cursive;
+  font-size: clamp(3rem, 5vw, 3rem);
   font-weight: 400;
   color: var(--color-dark);
   margin: 0;
@@ -240,6 +254,34 @@ body.menu-open {
   letter-spacing: 2px;
   animation: fadeInUp 1s ease-out 0.3s both;
 }
+
+.hero-title-2 {
+  font-family: "Catchy Mager", cursive;
+  font-size: clamp(3rem, 5vw, 3rem);
+  font-weight: 400;
+  color: var(--color-dark);
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: 2px;
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
+.hero-title-2 {
+  font-family: "Catchy Mager", cursive;
+  text-align: center;
+}
+
+.hero-title-2 span {
+  display: block;
+}
+
+.hero-title-2 .line-1 {
+  font-size: 2.5rem;
+}
+
+.hero-title-2 .line-2 {
+  font-size: 3rem;
+}
+
 
 /* Fecha oculta inicialmente */
 .hero-date {
@@ -1030,7 +1072,7 @@ footer {
   padding: 40px 20px;
   margin-top: 80px;
   border-top: 3px solid var(--color-accent);
-  font-family: "Great Vibes", cursive;
+  font-family: "Amsterdam Three", cursive;
 }
 
 footer p:first-child {
@@ -1039,6 +1081,7 @@ footer p:first-child {
 }
 
 .footer-names {
+  font-family: "Amsterdam Three", cursive;
   font-size: 1.9rem;
   margin-top: 10px;
   color: var(--color-accent);
