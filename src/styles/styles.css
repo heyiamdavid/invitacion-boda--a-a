@@ -217,7 +217,7 @@ body.menu-open {
 /* Logo con monograma M & J */
 .hero-logo {
   width: 280px;
-  height: 280px;
+  height: 100px;
   margin-bottom: 20px;
   animation: fadeInScale 1.2s ease-out;
 }
