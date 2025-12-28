@@ -20,17 +20,17 @@ body {
 /* ---------- VARIABLES MEJORADAS ---------- */
 :root {
   /* Paleta principal - tonos tierra y dorados */
-  --color-primary: #4A3F35;      /* Marrón oscuro cálido */
-  --color-secondary: #6B5744;    /* Marrón medio */
-  --color-accent: #C9A875;       /* Dorado suave */
-  --color-accent-light: #E5D4B5; /* Dorado muy claro */
-  --color-accent-dark: #A68A5F;  /* Dorado oscuro */
+  --color-primary: #4A3F35;
+  --color-secondary: #6B5744;
+  --color-accent: #C9A875;
+  --color-accent-light: #E5D4B5;
+  --color-accent-dark: #A68A5F;
   
   /* Tonos neutros */
-  --color-light: #FAF7F2;        /* Crema muy claro */
-  --color-beige: #E8DED0;        /* Beige claro */
-  --color-beige-medium: #D4C4B0; /* Beige medio */
-  --color-dark: #2F2F2F;         /* Gris oscuro */
+  --color-light: #FAF7F2;
+  --color-beige: #E8DED0;
+  --color-beige-medium: #D4C4B0;
+  --color-dark: #2F2F2F;
   
   /* Tonos de fondo */
   --color-bg-primary: #FFFFFF;
@@ -127,105 +127,58 @@ body {
   filter: none;
 }
 
-/* ---------- HERO CON IMAGEN DE FONDO ---------- */
+/* ---------- HERO SIMPLIFICADO CON WIDTH ---------- */
 
 .hero {
   position: relative;
-  height: 100vh;
-  background-image: url('/assets/images/fondo.png'); /* Aquí debes poner la ruta de tu imagen */
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+  min-height: 100vh;
+  background-image: url('/assets/images/fondo.png');
   background-color: #FAF7F2;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center top;
+  
   display: flex;
   justify-content: center;
   align-items: flex-end;
   text-align: center;
-  padding: 0 25px 110px 20px;
   overflow: hidden;
+  padding-bottom: 80px;
 }
 
-/* Eliminar texturas ya que usamos la imagen */
+/* Eliminar overlays */
 .hero::before,
 .hero::after {
   display: none;
 }
 
-/* Overlay muy sutil solo para ajustar brillo si es necesario */
 .hero-overlay {
   display: none;
 }
 
+/* Contenido del hero */
 .hero-content {
   position: relative;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
   width: 100%;
+  padding: 20px;
   max-width: 400px;
 }
 
-/* Ocultar título y fecha, solo mostrar botón */
+/* Ocultar título y fecha */
 .hero-title,
 .hero-date {
   display: none;
-}
-
-/* Ajustes responsivos */
-@media (max-width: 768px) {
-  .hero {
-    padding: 0 20px 60px 20px;
-    min-height: 100vh;
-    height: auto;
-  }
-  
-  .hero-content {
-    max-width: 90%;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1200px) {
-  .hero {
-    background-size: contain;
-    padding: 0 20px 100px 20px;
-  }
-}
-
-@media (min-width: 1201px) {
-  .hero {
-    background-size: contain;
-    max-height: 900px;
-  }
-}
-
-.hero-content {
-  position: relative;
-  z-index: 3;
 }
 
 body.menu-open {
   overflow: hidden !important;
 }
 
-.hero-title {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 600;
-  letter-spacing: 3px;
-  color: var(--color-primary);
-  text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
-}
-
-.hero-date {
-  font-size: clamp(1.2rem, 3vw, 2rem);
-  font-weight: 300;
-  margin-top: 10px;
-  opacity: 0.85;
-  color: var(--color-secondary);
-}
-
+/* Botón principal */
 .hero-button {
   margin-top: 0;
   display: inline-block;
@@ -244,6 +197,39 @@ body.menu-open {
   transform: scale(1.05);
   background: var(--color-accent-dark);
   box-shadow: 0 6px 25px rgba(201, 168, 117, 0.6);
+}
+
+/* ---------- RESPONSIVE SIMPLIFICADO ---------- */
+
+/* Móviles */
+@media (max-width: 767px) {
+  .hero {
+    background-size: 115% auto;
+    background-position: center top;
+    padding-bottom: 100px;
+  }
+  
+  .hero-content {
+    max-width: 90%;
+  }
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero {
+    background-size: 100% auto;
+    background-position: center top;
+    padding-bottom: 100px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .hero {
+    background-size: 100% auto;
+    background-position: center top;
+    padding-bottom: 120px;
+  }
 }
 
 /* ---------- COUNTDOWN ---------- */
