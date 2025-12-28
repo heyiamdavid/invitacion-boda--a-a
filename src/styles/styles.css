@@ -1,4 +1,5 @@
 /* ---------- RESET ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -127,33 +128,76 @@ body {
   filter: none;
 }
 
-/* ---------- HERO SIMPLIFICADO CON WIDTH ---------- */
+/* ---------- HERO ELEGANTE CON CAPAS ---------- */
+
+/* Importar fuente script elegante para los nombres */
+
+
+.great-vibes-regular {
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
 
 .hero {
   position: relative;
   min-height: 100vh;
-  background-image: url('/assets/images/fondo.png');
-  background-color: #FAF7F2;
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-position: center top;
-  
+  background: #FAF7F2;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   text-align: center;
   overflow: hidden;
-  padding-bottom: 80px;
 }
 
-/* Eliminar overlays */
-.hero::before,
+/* Capa de fondo blanco */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/assets/images/fondo_blanco.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+/* Flor dorada izquierda */
 .hero::after {
-  display: none;
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 400px;
+  height: 400px;
+  background-image: url('/assets/images/flor_dorada_izquierda.png');
+  background-size: contain;
+  background-position: bottom left;
+  background-repeat: no-repeat;
+  z-index: 2;
+  opacity: 0.95;
 }
 
+/* Flor dorada derecha */
 .hero-overlay {
-  display: none;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 400px;
+  height: 400px;
+  background-image: url('/assets/images/flor_dorada_derecha.png');
+  background-size: contain;
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  z-index: 2;
+  opacity: 0.95;
+}
+
+body.menu-open {
+  overflow: hidden !important;
 }
 
 /* Contenido del hero */
@@ -163,72 +207,138 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
-  padding: 20px;
-  max-width: 400px;
+  padding: 40px 20px;
+  max-width: 600px;
+  gap: 30px;
 }
 
-/* Ocultar título y fecha */
-.hero-title,
+/* Logo con monograma M & J */
+.hero-logo {
+  width: 280px;
+  height: 280px;
+  margin-bottom: 20px;
+  animation: fadeInScale 1.2s ease-out;
+}
+
+.hero-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 15px rgba(201, 168, 117, 0.3));
+}
+
+/* Nombres con tipografía elegante tipo script */
+.hero-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 400;
+  color: var(--color-dark);
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: 2px;
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+/* Fecha oculta inicialmente */
 .hero-date {
   display: none;
 }
 
-body.menu-open {
-  overflow: hidden !important;
-}
-
-/* Botón principal */
+/* Botón principal centrado */
 .hero-button {
-  margin-top: 0;
+  margin-top: 20px;
   display: inline-block;
   background: var(--color-accent);
   color: var(--color-primary);
-  padding: 14px 32px;
+  padding: 16px 40px;
   border-radius: 50px;
   font-weight: 600;
+  font-size: 1.1rem;
   text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   transition: all .3s ease;
   box-shadow: 0 4px 15px rgba(201, 168, 117, 0.4);
   z-index: 10;
+  animation: fadeInUp 1s ease-out 0.6s both;
 }
 
 .hero-button:hover {
-  transform: scale(1.05);
+  transform: translateY(-3px);
   background: var(--color-accent-dark);
-  box-shadow: 0 6px 25px rgba(201, 168, 117, 0.6);
+  box-shadow: 0 8px 25px rgba(201, 168, 117, 0.6);
 }
 
-/* ---------- RESPONSIVE SIMPLIFICADO ---------- */
+/* Animaciones */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- RESPONSIVE ---------- */
 
 /* Móviles */
 @media (max-width: 767px) {
-  .hero {
-    background-size: 117% auto;
-    background-position: center top;
-    padding-bottom: 100px;
+  .hero::after,
+  .hero-overlay {
+    width: 250px;
+    height: 250px;
   }
   
-  .hero-content {
-    max-width: 120%;
+  .hero-logo {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-button {
+    padding: 14px 32px;
+    font-size: 1rem;
   }
 }
 
 /* Tablets */
 @media (min-width: 768px) and (max-width: 1023px) {
-  .hero {
-    background-size: 100% auto;
-    background-position: center top;
-    padding-bottom: 100px;
+  .hero::after,
+  .hero-overlay {
+    width: 320px;
+    height: 320px;
+  }
+  
+  .hero-logo {
+    width: 240px;
+    height: 240px;
   }
 }
 
-/* Desktop */
-@media (min-width: 1024px) {
-  .hero {
-    background-size: 100% auto;
-    background-position: center top;
-    padding-bottom: 120px;
+/* Desktop grande */
+@media (min-width: 1440px) {
+  .hero::after,
+  .hero-overlay {
+    width: 500px;
+    height: 500px;
   }
 }
 
