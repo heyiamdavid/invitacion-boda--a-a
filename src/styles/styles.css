@@ -414,19 +414,20 @@ body.menu-open {
 }
 
 .countdown-title {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 600;
+  font-family: "Catchy Mager", cursive;
+  font-size: clamp(2.4rem, 4vw, 3rem);
+  font-weight: 400;
   color: var(--color-primary);
   margin-bottom: 25px;
+  letter-spacing: 2px;
 }
 
 .countdown-date {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.4rem;
-  font-weight: 500;
+  font-family: "Catchy Mager", cursive;
+  font-size: 1.6rem;
+  font-weight: 400;
   color: var(--color-secondary);
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   opacity: .9;
 }
 
@@ -472,13 +473,25 @@ body.menu-open {
 }
 
 .section-title {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 600;
+  font-family: "Catchy Mager", cursive;
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 400;
   color: var(--color-primary);
   text-align: center;
   margin-bottom: 40px;
+  letter-spacing: 2px;
 }
+
+
+/* ---------- TITULOS ELEGANTES (Catchy Mager) ---------- */
+
+.title-script {
+  font-family: "Catchy Mager", cursive;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  color: var(--color-primary);
+}
+
 
 .section:nth-child(even) {
   background: var(--color-bg-secondary);
@@ -630,14 +643,14 @@ body.menu-open {
 }
 
 .timeline-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-family: "Catchy Mager", cursive;
+  font-size: clamp(2rem, 4vw, 2.6rem);
   color: var(--color-primary);
   text-align: center;
   margin-bottom: 50px;
   font-weight: 400;
-  font-style: italic;
 }
+
 
 .timeline-grid {
   position: relative;
@@ -804,14 +817,23 @@ body.menu-open {
   border: 2px solid var(--color-accent-light);
 }
 
-.rsvp-title {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 2rem;
-  color: var(--color-primary);
-  margin-bottom: 20px;
-  font-weight: 600;
+.rsvp-title,
+.confirm-title {
+  font-family: "Catchy Mager", cursive;
+  font-weight: 400;
+  letter-spacing: 1.5px;
 }
 
+
+.rsvp-form label,
+.rsvp-form p,
+.rsvp-form span,
+.rsvp-form legend {
+  font-family: "Catchy Mager", cursive;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  color: var(--color-primary);
+}
 .rsvp-form {
   display: flex;
   flex-direction: column;
