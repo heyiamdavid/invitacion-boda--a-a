@@ -2,8 +2,8 @@ export default function Timeline() {
   const steps = [
     {
       title: "Ceremonia",
-      time: "12:00 PM – 1:00 PM",
-      desc: "Comparte con nosotros este momento tan especial.",
+      time: "4:30 PM – 5:30 PM",
+      desc: "Ambos diremos acepto frente al mar.",
       icon: (
         <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M32 6v8"/>
@@ -17,7 +17,7 @@ export default function Timeline() {
     },
     {
       title: "Recepción",
-      time: "2:00 PM – 1:00 AM",
+      time: "5:30 PM – 10:00 PM",
       desc: "Disfrutemos juntos de una maravillosa celebración.",
       icon: (
         <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">
@@ -30,7 +30,7 @@ export default function Timeline() {
     {
       title: "Fiesta",
       time: "11:00 PM – 3:00 AM",
-      desc: "¡Aquí comienza la diversión!",
+      desc: "¡Disfruten la música en vivo!",
       icon: (
         <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M40 10v28.5a6.5 6.5 0 1 1-2-4.6V16l-14 4v18.5a6.5 6.5 0 1 1-2-4.6V18l18-6z"/>

@@ -1,35 +1,50 @@
 export default function Events() {
+  // 🔹 MISMA UBICACIÓN QUE HOSPEDAJE
+  const place = {
+    name: "Hostería Rayo Rojo",
+    address: "Av. Malecón, Salinas, Ecuador",
+
+    googleMaps:
+      "https://www.google.com/maps/dir/?api=1&destination=Hoster%C3%ADa+Rayo+Rojo&destination_place_id=ChIJ43R56P8NLpARTkMzHEAVa9o",
+
+    waze:
+      "https://www.waze.com/ul?ll=-2.1955930,-80.9858508&navigate=yes&q=Hoster%C3%ADa%20Rayo%20Rojo",
+  };
+
+  // 🔹 MISMAS FUNCIONES (SIN POP-UP BLOQUEADO)
+  const handleGoogleMaps = () => {
+    window.location.href = place.googleMaps;
+  };
+
+  const handleWaze = () => {
+    window.location.href = place.waze;
+  };
+
   const events = [
     {
       icon: "/assets/images/anillo-icon.png",
       title: "Ceremonia",
       date: "18 de Abril, 2026",
-      time: "12:00 PM – 1:00 PM",
-      place: "Templo de San Pedro y San Pablo",
-      address: "Parota, Ario de Rosales\nZamora, Michoacán",
-      links: [
-        { text: "Llegar con Waze", url: "https://waze.com/" },
-        { text: "Ver mapa", url: "https://maps.google.com/" },
-      ],
+      time: "4:30 PM – 5:30 PM",
+      place: place.name,
+      address: place.address,
+      showMaps: true,
     },
     {
       icon: "/assets/images/lista-icon.png",
       title: "Recepción",
       date: "18 de Abril, 2026",
-      time: "2:00 PM – 1:00 AM",
-      place: "Hacienda Cañipato",
-      address: "Av. de las Flores s/n\nCerrito de Ortiz, Zamora, Mich.",
-      links: [
-        { text: "Llegar con Waze", url: "https://waze.com/" },
-        { text: "Ver mapa", url: "https://maps.google.com/" },
-      ],
+      time: "5:30 PM – 10:00 PM",
+      place: place.name,
+      address: place.address,
+      showMaps: true,
     },
     {
       icon: "/assets/images/vestimenta-icon.png",
       title: "Código de Vestimenta",
       date: "Cocktail",
-      time: "Vestimenta formal y elegante para celebrar juntos",
-      links: [],
+      time: "El color blanco y el beige están reservados para los novios",
+      showMaps: false,
     },
   ];
 
@@ -43,27 +58,39 @@ export default function Events() {
             <div className="evento-card" key={i}>
               <img src={e.icon} alt={e.title} className="evento-icon" />
               <h3>{e.title}</h3>
+
               <p><strong>{e.date}</strong></p>
               <p>{e.time}</p>
+
               {e.place && <p>{e.place}</p>}
+
               {e.address && (
-                <p style={{ fontSize: "0.9rem", opacity: 0.8, whiteSpace: "pre-line" }}>
+                <p
+                  style={{
+                    fontSize: "0.9rem",
+                    opacity: 0.8,
+                    whiteSpace: "pre-line",
+                  }}
+                >
                   {e.address}
                 </p>
               )}
-              {e.links.length > 0 && (
+
+              {e.showMaps && (
                 <div className="botones-mapa">
-                  {e.links.map((link, j) => (
-                    <a
-                      key={j}
-                      href={link.url}
-                      className="btn-map"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {link.text}
-                    </a>
-                  ))}
+                  <button
+                    className="btn-map"
+                    onClick={handleGoogleMaps}
+                  >
+                    Cómo llegar (Maps)
+                  </button>
+
+                  <button
+                    className="btn-map btn-waze"
+                    onClick={handleWaze}
+                  >
+                    Abrir en Waze
+                  </button>
                 </div>
               )}
             </div>

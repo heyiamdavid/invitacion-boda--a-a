@@ -8,7 +8,6 @@ import Gallery from "../components/Gallery";
 import RSVP from "../components/RSVP";
 import Countdown from "../components/Countdown";
 import Events from "../components/Events";
-import MapSection from "../components/MapSection";
 import Footer from "../components/Footer";
 import MusicButton from "../components/MusicButton";
 
@@ -27,7 +26,6 @@ export default function Landing() {
           <Events />
           <Timeline />
           <Hospedaje />
-          <MapSection />
           <Gallery />
           <RSVP />
           <Footer />
