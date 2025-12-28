@@ -220,6 +220,7 @@ body.menu-open {
   z-index: 10;
   display: flex;
   flex-direction: column;
+  transform: translateY(-40px);
   align-items: center;
   justify-content: center;
   width: 100%;
