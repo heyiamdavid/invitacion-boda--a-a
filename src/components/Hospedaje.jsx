@@ -7,99 +7,28 @@ export default function Hospedaje() {
     // Place ID de Google Maps
     placeId: "ChIJ43R56P8NLpARTkMzHEAVa9o",
 
-    // Coordenadas correctas
+    // Coordenadas
     lat: -2.1955930,
     lng: -80.9858508,
 
-    // URL corta de Google Maps
-    googleMapsShort: "https://maps.app.goo.gl/onDaNkSDssTxP2Ft7",
+    // Google Maps - URL universal que funciona en todos los dispositivos
+    googleMaps: "https://www.google.com/maps/dir/?api=1&destination=Hoster%C3%ADa+Rayo+Rojo&destination_place_id=ChIJ43R56P8NLpARTkMzHEAVa9o",
 
-    // URLs para diferentes plataformas
-    mapsWeb:
-      "https://www.google.com/maps/dir/?api=1&destination=Hoster%C3%ADa+Rayo+Rojo&destination_place_id=ChIJ43R56P8NLpARTkMzHEAVa9o",
-
-    mapsIOS:
-      "https://maps.apple.com/?daddr=Hoster%C3%ADa+Rayo+Rojo,Salinas,Ecuador&dirflg=d",
-
-    // Waze URLs
-    wazeDeepLink: `waze://?ll=-2.1955930,-80.9858508&navigate=yes&q=Hoster%C3%ADa%20Rayo%20Rojo`,
-    wazeWeb: "https://www.waze.com/ul?ll=-2.1955930,-80.9858508&navigate=yes&q=Hoster%C3%ADa%20Rayo%20Rojo",
+    // Waze - URL universal que funciona en todos los dispositivos
+    waze: "https://www.waze.com/ul?ll=-2.1955930,-80.9858508&navigate=yes&q=Hoster%C3%ADa%20Rayo%20Rojo",
   };
 
-  // Función para detectar si estamos en móvil
-  const isMobile = () => {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  // Función para abrir Google Maps (sin pop-up bloqueado)
+  const handleGoogleMaps = () => {
+    // Usar window.location.href en lugar de window.open
+    // Esto NO es bloqueado por los navegadores
+    window.location.href = place.googleMaps;
   };
 
-  // Función para detectar iOS
-  const isIOS = () => {
-    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-  };
-
-  // Función para detectar Android
-  const isAndroid = () => {
-    return /android/i.test(navigator.userAgent);
-  };
-
-  // Función mejorada para Google Maps (sin errores de deep link)
-  const handleNavigation = () => {
-    // iOS - Usar Apple Maps o Google Maps web
-    if (isIOS()) {
-      // En iOS, abrimos directamente la URL de Apple Maps
-      window.open(place.mapsIOS, "_blank");
-      return;
-    }
-
-    // Android - Usar intent de Android o web
-    if (isAndroid()) {
-      // Intent de Android para abrir Google Maps
-      const intentUrl = `intent://maps.google.com/maps?daddr=${place.lat},${place.lng}&dirflg=d#Intent;scheme=https;package=com.google.android.apps.maps;end`;
-      
-      // Intentar abrir con intent
-      window.location.href = intentUrl;
-      
-      // Fallback después de 2 segundos
-      setTimeout(() => {
-        window.open(place.mapsWeb, "_blank");
-      }, 2000);
-      return;
-    }
-
-    // Desktop o otros - Abrir directamente en web
-    window.open(place.mapsWeb, "_blank");
-  };
-
-  // Función mejorada para Waze (sin errores de deep link)
+  // Función para abrir Waze (sin pop-up bloqueado)
   const handleWaze = () => {
-    if (isMobile()) {
-      // Crear un iframe invisible para intentar abrir la app
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.src = place.wazeDeepLink;
-      document.body.appendChild(iframe);
-
-      // Esperar y luego abrir en web si no se abrió la app
-      let appOpened = false;
-      
-      // Detectar si la app se abrió
-      const startTime = Date.now();
-      
-      window.addEventListener('blur', () => {
-        appOpened = true;
-      }, { once: true });
-
-      // Después de 1.5 segundos, si no se abrió la app, abrir web
-      setTimeout(() => {
-        document.body.removeChild(iframe);
-        
-        if (!appOpened && (Date.now() - startTime) < 2000) {
-          window.open(place.wazeWeb, "_blank");
-        }
-      }, 1500);
-    } else {
-      // Desktop - abrir directamente en web
-      window.open(place.wazeWeb, "_blank");
-    }
+    // Usar window.location.href en lugar de window.open
+    window.location.href = place.waze;
   };
 
   return (
@@ -133,7 +62,7 @@ export default function Hospedaje() {
             <div className="botones-mapa">
               {/* BOTÓN GOOGLE MAPS */}
               <button
-                onClick={handleNavigation}
+                onClick={handleGoogleMaps}
                 className="btn-map"
                 aria-label="Abrir en Google Maps"
               >
