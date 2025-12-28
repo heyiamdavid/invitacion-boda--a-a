@@ -110,10 +110,10 @@ export default function RSVP() {
               onChange={(e) => setInvitados(e.target.value)}
               disabled={loading}
             >
-              <option value="1">1 Invitado</option>
-              <option value="2">2 Invitados</option>
-              <option value="3">3 Invitados</option>
-              <option value="4">4 Invitados</option>
+              <option value="1">1 Pase</option>
+              <option value="2">2 Pases</option>
+              <option value="3">3 Pases</option>
+              <option value="4">4 Pases</option>
             </select>
 
             <textarea
@@ -139,7 +139,7 @@ export default function RSVP() {
       {/* ✅ SECCIÓN PREMIUM QR */}
       {qrData && (
         <div className="confirm-container">
-          <h2 className="confirm-title">💍 ¡Gracias por confirmar! 💍</h2>
+          <h2 className="confirm-title">¡Gracias por confirmar!</h2>
           <p className="confirm-sub">Presenta este código el día del evento</p>
 
           <div className="qr-card">
@@ -152,7 +152,6 @@ export default function RSVP() {
 
           <div className="qr-actions">
             <button className="qr-btn" onClick={addToCalendar}>Añadir al Calendario</button>
-            <button className="qr-btn" onClick={downloadQR}>Guardar QR</button>
             <button className="qr-btn" onClick={() => setQrData(null)}>Cerrar</button>
           </div>
         </div>

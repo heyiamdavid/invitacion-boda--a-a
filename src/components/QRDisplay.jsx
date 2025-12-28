@@ -36,7 +36,7 @@ export default function QRDisplay({ value, label, nombre }) {
           level="H"
         />
 
-        <p className="qr-name">Nombre: {nombre}</p>
+    
       </div>
 
       <button className="qr-download" onClick={handleDownload}>
