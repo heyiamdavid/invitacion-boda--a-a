@@ -4,10 +4,11 @@ import QRDisplay from "./QRDisplay";
 
 /* 🔐 LISTA DE INVITADOS Y LÍMITE DE PASES */
 const invitadosPermitidos = [
-  { nombre: "Juan Carlos Pérez López", max: 2 },
-  { nombre: "María José Andrade Ruiz", max: 1 },
-  { nombre: "Luis Alberto Gómez Vera", max: 3 },
-  { nombre: "Ana María Torres Cruz", max: 1 },
+  { nombre: "María Fernanda Alvarado Merchán", max: 2 },
+  { nombre: "David Isaac Alvarado Merchán", max: 1 },
+  { nombre: "Carlos Armando Salazar Jaramillo", max: 3 },
+  { nombre: "Josue Armando Salazar Merchán", max: 1 },
+  { nombre: "Irma Aracely Merchán Zambrano", max: 1 },
 ];
 
 /* 🔎 NORMALIZAR TEXTO */
@@ -42,7 +43,7 @@ export default function RSVP() {
 
     try {
       if (!nombre.trim()) {
-        setMensaje("Por favor ingresa tu nombre completo");
+        setMensaje("Por favor ingresa rus dos nombres y tus dos apellidos");
         return;
       }
 

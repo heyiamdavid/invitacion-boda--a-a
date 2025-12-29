@@ -1228,37 +1228,69 @@ body.menu-open {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 60px;
-  height: 60px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
-  background: var(--color-bg-primary);
-  color: var(--color-accent);
-  border: 2px solid var(--color-accent);
+
+  /* ☕ Fondo café translúcido */
+  background: rgba(139, 94, 60, 0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  /* ☕ Ícono café */
+  color: rgba(139, 94, 60, 0.75);
+
+  /* 🌸 Borde elegante */
+  border: 1.5px solid rgba(201, 168, 117, 0.55);
+
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.8rem;
+
+  font-size: 1.7rem;
   cursor: pointer;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-  transition: all .3s ease;
+
+  box-shadow:
+    0 8px 25px rgba(139, 94, 60, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+
+  transition: all 0.35s ease;
   z-index: 999999;
 }
 
+/* ✨ Hover elegante */
 .music-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 12px 35px rgba(201, 168, 117, 0.3);
+  transform: scale(1.08);
+  background: rgba(139, 94, 60, 0.28);
+  color: rgba(139, 94, 60, 0.95);
+  box-shadow:
+    0 12px 35px rgba(139, 94, 60, 0.3);
 }
 
+/* 🎶 Reproduciendo */
 .music-btn.playing {
-  background: var(--color-accent);
-  color: var(--color-primary);
-  animation: pulse 2s ease infinite;
+  background: rgba(201, 168, 117, 0.3);
+  color: rgba(92, 60, 38, 0.9);
+  border-color: rgba(201, 168, 117, 0.9);
+  animation: pulseSoft 2.5s ease-in-out infinite;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+/* 💫 Pulso suave (no exagerado) */
+@keyframes pulseSoft {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 8px 25px rgba(201, 168, 117, 0.25);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 14px 35px rgba(201, 168, 117, 0.45);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 8px 25px rgba(201, 168, 117, 0.25);
+  }
 }
+
 
 /* ---------- FOOTER ---------- */
 

@@ -1,4 +1,6 @@
 import { useState, useRef } from "react";
+import { FaMusic } from "react-icons/fa";
+
 export default function MusicButton() {
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef(null);
@@ -11,9 +13,10 @@ export default function MusicButton() {
 
     if (!playing) {
       audio.currentTime = 0;
-      audio.play()
+      audio
+        .play()
         .then(() => setPlaying(true))
-        .catch(err => console.log("🔇 Bloqueado:", err));
+        .catch((err) => console.log("🔇 Bloqueado:", err));
     } else {
       audio.pause();
       setPlaying(false);
@@ -25,8 +28,9 @@ export default function MusicButton() {
       <button
         className={`music-btn ${playing ? "playing" : ""}`}
         onClick={toggleMusic}
+        aria-label="Reproducir música"
       >
-        🎵
+        <FaMusic />
       </button>
 
       <audio
