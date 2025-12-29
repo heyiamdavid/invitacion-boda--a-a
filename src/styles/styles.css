@@ -811,7 +811,7 @@ body.menu-open {
 }
 
 .gallery-toggle-btn {
-  display: none; /* Oculto por defecto en desktop */
+  display: inline-block;; /* Oculto por defecto en desktop */
   background: var(--color-accent);
   color: var(--color-primary);
   padding: 14px 32px;
@@ -826,6 +826,12 @@ body.menu-open {
   box-shadow: 0 4px 15px rgba(201, 168, 117, 0.4);
 }
 
+@media (min-width: 768px) {
+  .gallery-toggle-btn {
+    padding: 16px 40px;
+    font-size: 1.1rem;
+  }
+}
 .gallery-toggle-btn:hover {
   background: var(--color-accent-dark);
   transform: translateY(-2px);
@@ -842,6 +848,73 @@ body.menu-open {
     display: inline-block;
   }
 }
+
+/* ---------- FONDO PAPEL GLOBAL ---------- */
+
+.paper-bg {
+  position: relative;
+  background: #FAF7F2;
+  overflow: hidden;
+}
+
+/* Fondo blanco tipo papel */
+.paper-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/assets/images/fondo_blanco.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* Flor izquierda */
+.paper-bg::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 400px;
+  height: 400px;
+  background-image: url("/assets/images/flor_dorada_izquierda.png");
+  background-size: contain;
+  background-position: bottom left;
+  background-repeat: no-repeat;
+  z-index: 1;
+  opacity: 0.95;
+}
+
+/* Flor derecha */
+.paper-bg .paper-flower-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 400px;
+  height: 400px;
+  background-image: url("/assets/images/flor_dorada_derecha.png");
+  background-size: contain;
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  z-index: 1;
+  opacity: 0.95;
+}
+
+/* Contenido siempre arriba */
+.paper-bg > * {
+  position: relative;
+  z-index: 5;
+}
+
+/* Responsive flores */
+@media (max-width: 767px) {
+  .paper-bg::after,
+  .paper-bg .paper-flower-right {
+    width: 250px;
+    height: 250px;
+  }
+}
+
 
 /* ---------- LIGHTBOX ---------- */
 

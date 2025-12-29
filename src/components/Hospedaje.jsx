@@ -11,28 +11,31 @@ export default function Hospedaje() {
     lat: -2.1955930,
     lng: -80.9858508,
 
-    // Google Maps - URL universal que funciona en todos los dispositivos
-    googleMaps: "https://www.google.com/maps/dir/?api=1&destination=Hoster%C3%ADa+Rayo+Rojo&destination_place_id=ChIJ43R56P8NLpARTkMzHEAVa9o",
+    // Google Maps
+    googleMaps:
+      "https://www.google.com/maps/dir/?api=1&destination=Hoster%C3%ADa+Rayo+Rojo&destination_place_id=ChIJ43R56P8NLpARTkMzHEAVa9o",
 
-    // Waze - URL universal que funciona en todos los dispositivos
-    waze: "https://www.waze.com/ul?ll=-2.1955930,-80.9858508&navigate=yes&q=Hoster%C3%ADa%20Rayo%20Rojo",
+    // Waze
+    waze:
+      "https://www.waze.com/ul?ll=-2.1955930,-80.9858508&navigate=yes&q=Hoster%C3%ADa%20Rayo%20Rojo",
   };
 
-  // Función para abrir Google Maps (sin pop-up bloqueado)
   const handleGoogleMaps = () => {
-    // Usar window.location.href en lugar de window.open
-    // Esto NO es bloqueado por los navegadores
     window.location.href = place.googleMaps;
   };
 
-  // Función para abrir Waze (sin pop-up bloqueado)
   const handleWaze = () => {
-    // Usar window.location.href en lugar de window.open
     window.location.href = place.waze;
   };
 
   return (
-    <section className="section fade-in-section" id="hospedaje">
+    <section
+      className="section fade-in-section paper-bg"
+      id="hospedaje"
+    >
+      {/* 🌸 Flor derecha */}
+      <div className="paper-flower-right"></div>
+
       <h2 className="section-title">Ubicación</h2>
 
       {/* MAPA EMBEBIDO */}
@@ -60,7 +63,6 @@ export default function Hospedaje() {
             <div className="hotel-dir">{place.address}</div>
 
             <div className="botones-mapa">
-              {/* BOTÓN GOOGLE MAPS */}
               <button
                 onClick={handleGoogleMaps}
                 className="btn-map"
@@ -69,7 +71,6 @@ export default function Hospedaje() {
                 Cómo llegar (Maps)
               </button>
 
-              {/* BOTÓN WAZE */}
               <button
                 onClick={handleWaze}
                 className="btn-map btn-waze"

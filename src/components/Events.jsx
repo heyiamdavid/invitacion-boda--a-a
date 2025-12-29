@@ -11,7 +11,6 @@ export default function Events() {
       "https://www.waze.com/ul?ll=-2.1955930,-80.9858508&navigate=yes&q=Hoster%C3%ADa%20Rayo%20Rojo",
   };
 
-  // 🔹 MISMAS FUNCIONES (SIN POP-UP BLOQUEADO)
   const handleGoogleMaps = () => {
     window.location.href = place.googleMaps;
   };
@@ -49,7 +48,13 @@ export default function Events() {
   ];
 
   return (
-    <section className="section fade-in-section" id="cuando-donde">
+    <section
+      className="section fade-in-section paper-bg"
+      id="cuando-donde"
+    >
+      {/* 🌸 Flor derecha */}
+      <div className="paper-flower-right"></div>
+
       <div className="section-content">
         <h2 className="section-title">Cuándo y Dónde</h2>
 

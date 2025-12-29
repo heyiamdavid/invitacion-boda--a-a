@@ -1,6 +1,33 @@
 import { useState } from "react";
 import { supabase } from "../supabaseClient";
 import QRDisplay from "./QRDisplay";
+
+/* 🔐 LISTA DE INVITADOS Y LÍMITE DE PASES */
+const invitadosPermitidos = [
+  { nombre: "Juan Carlos Pérez López", max: 2 },
+  { nombre: "María José Andrade Ruiz", max: 1 },
+  { nombre: "Luis Alberto Gómez Vera", max: 3 },
+  { nombre: "Ana María Torres Cruz", max: 1 },
+];
+
+/* 🔎 NORMALIZAR TEXTO */
+function normalizarTexto(texto) {
+  return texto
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zñ\s]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/* 🔍 OBTENER INVITADO */
+function obtenerInvitado(nombreNormalizado) {
+  return invitadosPermitidos.find(
+    (inv) => normalizarTexto(inv.nombre) === nombreNormalizado
+  );
+}
+
 export default function RSVP() {
   const [nombre, setNombre] = useState("");
   const [invitados, setInvitados] = useState(1);
@@ -8,88 +35,116 @@ export default function RSVP() {
   const [qrData, setQrData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  function normalizarTexto(texto) {
-    return texto
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-zñ\s]/g, "")
-      .replace(/\s+/g, " ")
-      .trim();
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setMensaje("");
+    setLoading(true);
 
     try {
       if (!nombre.trim()) {
-        setMensaje("Por favor ingresa un nombre");
-        setLoading(false);
+        setMensaje("Por favor ingresa tu nombre completo");
         return;
       }
 
       const nombreNormalizado = normalizarTexto(nombre);
 
-      const { data, error } = await supabase
+      /* 🛑 VALIDAR 2 NOMBRES + 2 APELLIDOS */
+      const partes = nombreNormalizado.split(" ");
+      if (partes.length !== 4) {
+        setMensaje("Ingresa exactamente 2 nombres y 2 apellidos");
+        return;
+      }
+
+      /* 🔐 VALIDAR INVITADO */
+      const invitado = obtenerInvitado(nombreNormalizado);
+      if (!invitado) {
+        setMensaje("Tu nombre no se encuentra en la lista de invitados");
+        return;
+      }
+
+      /* 🎟️ VALIDAR LÍMITE DE PASES */
+      if (Number(invitados) > invitado.max) {
+        setMensaje(`Solo tienes permitido ${invitado.max} pase(s)`);
+        return;
+      }
+
+      /* 🔎 VERIFICAR SI YA ESTÁ REGISTRADO */
+      const { data: existente, error: errorBusqueda } = await supabase
         .from("rsvp")
-        .insert([{ nombre: nombreNormalizado, invitados: Number(invitados) }])
-        .select();
+        .select("*")
+        .eq("nombre", nombreNormalizado)
+        .maybeSingle();
 
-      if (error) throw error;
-      if (!data || data.length === 0) throw new Error("No se recibió data del registro");
-
-      const registro = data[0];
+      if (errorBusqueda) throw errorBusqueda;
 
       const BASE_URL = window.location.origin;
-      const qrText = `${BASE_URL}/confirmacion?id=${registro.id}`;
+
+      /* 🔵 YA REGISTRADO */
+      if (existente) {
+        const qrText =
+          existente.qr_code ||
+          `${BASE_URL}/confirmacion?id=${existente.id}`;
+
+        setQrData({
+          value: qrText,
+          nombre: existente.nombre,
+        });
+
+        setMensaje("Ya te encuentras registrado");
+        return;
+      }
+
+      /* 🟢 REGISTRO NUEVO */
+      const { data, error } = await supabase
+        .from("rsvp")
+        .insert([
+          {
+            nombre: nombreNormalizado,
+            invitados: Number(invitados),
+          },
+        ])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      const qrText = `${BASE_URL}/confirmacion?id=${data.id}`;
 
       await supabase
         .from("rsvp")
         .update({ qr_code: qrText })
-        .eq("id", registro.id);
+        .eq("id", data.id);
 
       setQrData({
         value: qrText,
         nombre: nombreNormalizado,
       });
 
-      setMensaje(`¡Gracias ${nombreNormalizado}! Registramos ${invitados} invitado(s).`);
+      setMensaje(`Registro exitoso. ${invitados} pase(s) confirmados.`);
       setNombre("");
       setInvitados(1);
-
     } catch (err) {
-      let mensajeError = "Error registrando asistencia. ";
-      if (err.message) mensajeError += err.message;
-      if (err.hint) mensajeError += ` Pista: ${err.hint}`;
-      setMensaje(mensajeError);
+      console.error(err);
+      setMensaje("Error al registrar asistencia");
     } finally {
       setLoading(false);
     }
   };
 
-  // ✅ GOOGLE CALENDAR
+  /* 📅 GOOGLE CALENDAR */
   const addToCalendar = () => {
     const url =
-      `https://www.google.com/calendar/render?action=TEMPLATE&text=Boda&dates=20250614T170000/20250614T230000&details=Celebración%20de%20boda&location=Zamora%2C%20Michoacán`;
-
+      "https://www.google.com/calendar/render?action=TEMPLATE&text=Boda&dates=20260418T163000/20260418T230000&details=Celebración%20de%20boda";
     window.open(url, "_blank");
   };
 
-  // ✅ DESCARGAR QR
-  const downloadQR = () => {
-    const canvas = document.querySelector("canvas");
-    if (!canvas) return;
-
-    const link = document.createElement("a");
-    link.href = canvas.toDataURL("image/png");
-    link.download = "qr-confirmacion.png";
-    link.click();
-  };
-
   return (
-    <section id="confirmacion" className="section fade-in-section">
+    <section
+      id="confirmacion"
+      className="section fade-in-section paper-bg"
+    >
+      {/* 🌸 FLOR DECORATIVA */}
+      <div className="paper-flower-right"></div>
 
       {!qrData && (
         <div className="rsvp-card">
@@ -98,11 +153,11 @@ export default function RSVP() {
           <form className="rsvp-form" onSubmit={handleSubmit}>
             <input
               type="text"
-              placeholder="Nombre completo"
+              placeholder="Ej: Juan Carlos Pérez López"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
-              required
               disabled={loading}
+              required
             />
 
             <select
@@ -110,53 +165,64 @@ export default function RSVP() {
               onChange={(e) => setInvitados(e.target.value)}
               disabled={loading}
             >
-              <option value="1">1 Pase</option>
-              <option value="2">2 Pases</option>
-              <option value="3">3 Pases</option>
-              <option value="4">4 Pases</option>
+              {[1, 2, 3, 4].map((n) => {
+                const invitado = obtenerInvitado(
+                  normalizarTexto(nombre)
+                );
+                return (
+                  <option
+                    key={n}
+                    value={n}
+                    disabled={invitado && n > invitado.max}
+                  >
+                    {n} Pase{n > 1 ? "s" : ""}
+                  </option>
+                );
+              })}
             </select>
 
-            <textarea
-              placeholder="Mensaje para los novios (opcional)"
-              value={mensaje}
-              onChange={(e) => setMensaje(e.target.value)}
+            <button
+              type="submit"
+              className="rsvp-btn"
               disabled={loading}
-            ></textarea>
-
-            <button type="submit" className="rsvp-btn" disabled={loading}>
-              {loading ? "Registrando..." : "Confirmar asistencia"}
+            >
+              {loading ? "Procesando..." : "Confirmar asistencia"}
             </button>
           </form>
 
           {mensaje && (
-            <div className={`rsvp-message ${mensaje.includes("Error") ? "error" : "success"}`}>
-              {mensaje}
-            </div>
+            <div className="rsvp-message">{mensaje}</div>
           )}
         </div>
       )}
 
-      {/* ✅ SECCIÓN PREMIUM QR */}
       {qrData && (
         <div className="confirm-container">
           <h2 className="confirm-title">¡Gracias por confirmar!</h2>
-          <p className="confirm-sub">Presenta este código el día del evento</p>
+          <p className="confirm-sub">
+            Presenta este código el día del evento
+          </p>
 
           <div className="qr-card">
             <QRDisplay value={qrData.value} />
-
-            <p style={{ marginTop: "10px", fontWeight: "bold", color: "var(--color-primary)" }}>
-              Nombre: {qrData.nombre}
+            <p>
+              <strong>Nombre:</strong> {qrData.nombre}
             </p>
           </div>
 
           <div className="qr-actions">
-            <button className="qr-btn" onClick={addToCalendar}>Añadir al Calendario</button>
-            <button className="qr-btn" onClick={() => setQrData(null)}>Cerrar</button>
+            <button className="qr-btn" onClick={addToCalendar}>
+              Añadir al calendario
+            </button>
+            <button
+              className="qr-btn"
+              onClick={() => setQrData(null)}
+            >
+              Cerrar
+            </button>
           </div>
         </div>
       )}
-
     </section>
   );
 }
