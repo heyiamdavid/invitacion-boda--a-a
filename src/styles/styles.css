@@ -803,6 +803,46 @@ body.menu-open {
   transform: scale(1.15);
 }
 
+/* ---------- GALLERY TOGGLE BUTTON ---------- */
+
+.gallery-toggle-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.gallery-toggle-btn {
+  display: none; /* Oculto por defecto en desktop */
+  background: var(--color-accent);
+  color: var(--color-primary);
+  padding: 14px 32px;
+  border: none;
+  border-radius: 50px;
+  font-family: "Catchy Mager", cursive;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(201, 168, 117, 0.4);
+}
+
+.gallery-toggle-btn:hover {
+  background: var(--color-accent-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201, 168, 117, 0.5);
+}
+
+.gallery-toggle-btn:active {
+  transform: translateY(0);
+}
+
+/* Mostrar botón solo en móviles */
+@media (max-width: 767px) {
+  .gallery-toggle-btn {
+    display: inline-block;
+  }
+}
+
 /* ---------- LIGHTBOX ---------- */
 
 .lightbox {
