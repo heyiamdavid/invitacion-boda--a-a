@@ -29,10 +29,13 @@ export default function Navbar() {
         <div className="navbar-inner">
 
           {/* Brand */}
-          <a href="#inicio" className="brand">
-            <div className="brand-logo">M&J</div>
-            <div className="brand-text">Nuestra Boda</div>
-          </a>
+<a href="#inicio" className="brand">
+  <div className="brand-logo">
+    <img src="/assets/images/logo_colores.png" alt="Logo Maria y Jhon" />
+  </div>
+  <div className="brand-text">Nuestra Boda</div>
+</a>
+
 
           {/* Links desktop */}
           <ul className="nav-links">
