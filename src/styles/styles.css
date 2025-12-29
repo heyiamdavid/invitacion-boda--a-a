@@ -123,11 +123,13 @@ body {
 
 .brand-text {
   font-family: "Catchy Mager", cursive;
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 1.5px;
   color: var(--color-primary);
   white-space: nowrap;
 }
+
 
 @media (max-width: 767px) {
   .brand {
@@ -153,11 +155,15 @@ body {
 }
 
 .nav-links a {
+  font-family: "Catchy Mager", cursive;
   color: var(--color-secondary);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  font-size: 1.05rem;
   transition: color .3s;
 }
+
 
 .nav-links a:hover {
   color: var(--color-accent);

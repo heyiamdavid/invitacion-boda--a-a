@@ -83,11 +83,14 @@ html, body {
 }
 
 .brand-text {
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-family: "Catchy Mager", cursive;
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 1.5px;
   color: var(--color-primary);
   white-space: nowrap;
 }
+
 
 
 /* DESKTOP LINKS */
@@ -98,11 +101,15 @@ html, body {
 }
 
 .nav-links a {
+  font-family: "Catchy Mager", cursive;
   color: var(--color-secondary);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  font-size: 1.05rem;
   transition: color .3s;
 }
+
 
 .nav-links a:hover {
   color: var(--color-accent);
@@ -183,9 +190,10 @@ html, body {
   text-decoration: none !important;
   background: rgba(201, 168, 117, 0.15);
   color: var(--color-light);
-  font-size: 1.25rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-family: "Catchy Mager", cursive;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 1.5px;
   border-radius: 50px;
   border: 2px solid rgba(201, 168, 117, 0.3);
   backdrop-filter: blur(6px);
@@ -220,7 +228,8 @@ html, body {
   }
 
   .brand-text {
-    font-size: 1rem;
+    font-size: 1.15rem;
+    letter-spacing: 1.2px;
   }
 }
 
