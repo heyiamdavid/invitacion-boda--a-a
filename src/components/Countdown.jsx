@@ -26,10 +26,10 @@ export default function Countdown() {
   }, []);
 
   const labels = {
-    days: "días",
-    hours: "horas",
-    minutes: "minutos",
-    seconds: "segundos",
+    days: "Dias",
+    hours: "Horas",
+    minutes: "Minutos",
+    seconds: "Segundos",
   };
 
   return (

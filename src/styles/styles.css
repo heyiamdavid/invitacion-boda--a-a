@@ -454,37 +454,46 @@ body.menu-open {
   background: var(--color-bg-secondary);
 }
 
+/* TÍTULO */
 .countdown-title {
   font-family: "Catchy Mager", cursive;
-  font-size: clamp(2.4rem, 4vw, 3rem);
+  font-size: clamp(2.2rem, 4vw, 3rem);
   font-weight: 400;
   color: var(--color-primary);
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   letter-spacing: 2px;
 }
 
+/* TEXTO "FALTAN" */
 .countdown-date {
   font-family: "Catchy Mager", cursive;
-  font-size: 1.6rem;
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
   font-weight: 400;
   color: var(--color-secondary);
-  margin-bottom: 20px;
-  opacity: .9;
+  margin-bottom: 25px;
+  opacity: 0.9;
 }
 
+/* GRID */
 .countdown-grid {
   display: flex;
   justify-content: center;
+  align-items: stretch;
   gap: 12px;
   flex-wrap: nowrap;
 }
 
+/* CUADRO */
 .countdown-box {
   background: var(--color-bg-primary);
   border: 2px solid var(--color-accent);
   border-radius: 15px;
-  padding: 20px 25px;
+  padding: 16px;
   min-width: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   transition: transform .3s ease, box-shadow .3s ease;
 }
@@ -494,17 +503,49 @@ body.menu-open {
   box-shadow: 0 8px 20px rgba(201, 168, 117, 0.25);
 }
 
+/* NÚMERO */
 .count-value {
-  font-size: 2rem;
+  font-size: clamp(1.6rem, 3vw, 2rem);
   font-weight: 700;
   color: var(--color-accent);
+  line-height: 1;
 }
 
+/* TEXTO D H M S */
 .count-label {
-  text-transform: capitalize;
-  font-size: .9rem;
+  margin-top: 6px;
+  font-size: 0.85rem;
   color: var(--color-secondary);
+  text-transform: uppercase;
+  white-space: nowrap;
 }
+
+/* ---------- RESPONSIVE MÓVIL ---------- */
+
+@media (max-width: 480px) {
+  .countdown {
+    padding: 40px 15px;
+  }
+
+  .countdown-grid {
+    gap: 8px;
+  }
+
+  .countdown-box {
+    padding: 10px;
+    min-width: clamp(60px, 20vw, 70px);
+  }
+
+  .count-value {
+    font-size: clamp(1.2rem, 5vw, 1.4rem);
+  }
+
+  .count-label {
+    font-size: 0.7rem;
+    margin-top: 4px;
+  }
+}
+
 
 /* ---------- SECCIÓN GENÉRICA ---------- */
 
