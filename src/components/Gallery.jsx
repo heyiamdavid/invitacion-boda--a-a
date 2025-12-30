@@ -54,7 +54,7 @@ export default function Gallery() {
   const displayImages = showAll ? images : images.slice(0, 3);
 
   return (
-    <section className="section fade-in-section" id="galeria">
+    <section className="section fade-in-section paper-bg-clean" id="galeria">
       <div className="section-content">
         <h2 className="section-title">Galería</h2>
 

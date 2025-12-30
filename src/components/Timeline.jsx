@@ -50,7 +50,7 @@ export default function Timeline() {
   ];
 
   return (
-    <section className="section fade-in-section" id="minuto-minuto">
+    <section className="section fade-in-section paper-bg-clean" id="minuto-minuto">
       <div className="timeline-wrapper">
         <h2 className="timeline-title">Minuto a Minuto</h2>
 

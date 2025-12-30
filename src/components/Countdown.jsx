@@ -33,7 +33,8 @@ export default function Countdown() {
   };
 
   return (
-    <section id="countdown" className="countdown fade-in-section">
+    
+    <section id="countdown" className="countdown fade-in-section paper-bg-clean">
       <h2 className="countdown-title">18 de abril del 2026</h2>
 
       <p className="countdown-date">Faltan</p>

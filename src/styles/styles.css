@@ -897,7 +897,31 @@ body.menu-open {
   background: #FAF7F2;
   overflow: hidden;
 }
+/* ---------- FONDO PAPEL SIN FLORES ---------- */
 
+.paper-bg-clean {
+  position: relative;
+  background: #FAF7F2;
+  overflow: hidden;
+}
+
+/* Fondo blanco tipo papel */
+.paper-bg-clean::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/assets/images/fondo_blanco.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* Contenido siempre arriba */
+.paper-bg-clean > * {
+  position: relative;
+  z-index: 5;
+}
 /* Fondo blanco tipo papel */
 .paper-bg::before {
   content: "";
