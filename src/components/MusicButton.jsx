@@ -3,7 +3,15 @@ import { FaMusic } from "react-icons/fa";
 
 export default function MusicButton() {
   const [playing, setPlaying] = useState(false);
+  const [currentSong, setCurrentSong] = useState(0);
   const audioRef = useRef(null);
+
+  /* 🎶 PLAYLIST */
+  const playlist = [
+    "assets/song/Camilo-LaBoda(Official Video).mp3",
+    "assets/song/Stephen_Sanchez_Until_I_Found_You_Official_VideoMP3_160K.mp3",
+    "assets/song/LATIN-MAFIA-Humbe-PatadasdeAhogado.mp3",
+  ];
 
   const toggleMusic = () => {
     const audio = audioRef.current;
@@ -12,14 +20,23 @@ export default function MusicButton() {
     audio.volume = 0.7;
 
     if (!playing) {
-      audio.currentTime = 0;
-      audio
-        .play()
+      audio.play()
         .then(() => setPlaying(true))
-        .catch((err) => console.log("🔇 Bloqueado:", err));
+        .catch(err => console.log("🔇 Bloqueado:", err));
     } else {
       audio.pause();
       setPlaying(false);
+    }
+  };
+
+  /* 🔁 CUANDO TERMINA UNA CANCIÓN */
+  const handleEnded = () => {
+    const nextSong = (currentSong + 1) % playlist.length;
+    setCurrentSong(nextSong);
+
+    if (audioRef.current) {
+      audioRef.current.src = playlist[nextSong];
+      audioRef.current.play();
     }
   };
 
@@ -35,9 +52,9 @@ export default function MusicButton() {
 
       <audio
         ref={audioRef}
-        loop
+        src={playlist[currentSong]}
         preload="auto"
-        src="assets/song/Stephen_Sanchez_Until_I_Found_You_Official_VideoMP3_160K.mp3"
+        onEnded={handleEnded}
       />
     </>
   );

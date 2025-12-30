@@ -34,9 +34,9 @@ export default function Countdown() {
 
   return (
     <section id="countdown" className="countdown fade-in-section">
-      <h2 className="countdown-title">Faltan</h2>
+      <h2 className="countdown-title">18 de abril del 2026</h2>
 
-      <p className="countdown-date">18 de abril del 2026</p>
+      <h1><p className="countdown-date">Faltan</p></h1>
 
       <div className="countdown-grid">
         {Object.entries(time).map(([label, value]) => (
