@@ -475,8 +475,8 @@ body.menu-open {
 .countdown-grid {
   display: flex;
   justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
+  gap: 12px;
+  flex-wrap: nowrap;
 }
 
 .countdown-box {
