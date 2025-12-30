@@ -62,7 +62,7 @@ export default function Navbar() {
       {/* MENU MÓVIL */}
       <nav className={`mobile-menu ${menuOpen ? "show" : ""}`}>
         
-        {/* 🔥 Botón X para cerrar */}
+        {/* Botón X para cerrar */}
         <button
           className="close-menu-btn"
           onClick={() => setMenuOpen(false)}

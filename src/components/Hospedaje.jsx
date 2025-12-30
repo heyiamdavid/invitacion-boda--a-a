@@ -33,7 +33,7 @@ export default function Hospedaje() {
       className="section fade-in-section paper-bg"
       id="hospedaje"
     >
-      {/* 🌸 Flor derecha */}
+      {/* Flor derecha */}
       <div className="paper-flower-right"></div>
 
       <h2 className="section-title">Ubicación</h2>

@@ -6,7 +6,7 @@ export default function MusicButton() {
   const [currentSong, setCurrentSong] = useState(0);
   const audioRef = useRef(null);
 
-  /* 🎶 PLAYLIST */
+  /* PLAYLIST */
   const playlist = [
     "assets/song/Camilo-LaBoda(Official Video).mp3",
     "assets/song/Stephen_Sanchez_Until_I_Found_You_Official_VideoMP3_160K.mp3",
@@ -29,7 +29,7 @@ export default function MusicButton() {
     }
   };
 
-  /* 🔁 CUANDO TERMINA UNA CANCIÓN */
+  /* CUANDO TERMINA UNA CANCIÓN */
   const handleEnded = () => {
     const nextSong = (currentSong + 1) % playlist.length;
     setCurrentSong(nextSong);

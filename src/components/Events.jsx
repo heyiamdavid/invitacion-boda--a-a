@@ -52,7 +52,7 @@ export default function Events() {
       className="section fade-in-section paper-bg"
       id="cuando-donde"
     >
-      {/* 🌸 Flor derecha */}
+      {/* Flor derecha */}
       <div className="paper-flower-right"></div>
 
       <div className="section-content">

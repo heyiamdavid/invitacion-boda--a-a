@@ -1232,15 +1232,15 @@ body.menu-open {
   height: 58px;
   border-radius: 50%;
 
-  /* ☕ Fondo café translúcido */
+  /* Fondo café translúcido */
   background: rgba(139, 94, 60, 0.18);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 
-  /* ☕ Ícono café */
+  /* Ícono café */
   color: rgba(139, 94, 60, 0.75);
 
-  /* 🌸 Borde elegante */
+  /* Borde elegante */
   border: 1.5px solid rgba(201, 168, 117, 0.55);
 
   display: flex;
@@ -1258,7 +1258,7 @@ body.menu-open {
   z-index: 999999;
 }
 
-/* ✨ Hover elegante */
+/* Hover elegante */
 .music-btn:hover {
   transform: scale(1.08);
   background: rgba(139, 94, 60, 0.28);
@@ -1267,7 +1267,7 @@ body.menu-open {
     0 12px 35px rgba(139, 94, 60, 0.3);
 }
 
-/* 🎶 Reproduciendo */
+/* Reproduciendo */
 .music-btn.playing {
   background: rgba(201, 168, 117, 0.3);
   color: rgba(92, 60, 38, 0.9);
@@ -1275,7 +1275,7 @@ body.menu-open {
   animation: pulseSoft 2.5s ease-in-out infinite;
 }
 
-/* 💫 Pulso suave (no exagerado) */
+/* Pulso suave (no exagerado) */
 @keyframes pulseSoft {
   0% {
     transform: scale(1);

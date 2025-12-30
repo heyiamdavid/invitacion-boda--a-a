@@ -2,7 +2,7 @@ import { useState } from "react";
 import { supabase } from "../supabaseClient";
 import QRDisplay from "./QRDisplay";
 
-/* 🔐 LISTA DE INVITADOS Y LÍMITE DE PASES */
+/* LISTA DE INVITADOS Y LÍMITE DE PASES */
 const invitadosPermitidos = [
   { nombre: "María Fernanda Alvarado Merchán", max: 2 },
   { nombre: "David Isaac Alvarado Merchán", max: 1 },
@@ -11,7 +11,7 @@ const invitadosPermitidos = [
   { nombre: "Irma Aracely Merchán Zambrano", max: 1 },
 ];
 
-/* 🔎 NORMALIZAR TEXTO */
+/* NORMALIZAR TEXTO */
 function normalizarTexto(texto) {
   return texto
     .toLowerCase()
@@ -49,21 +49,21 @@ export default function RSVP() {
 
       const nombreNormalizado = normalizarTexto(nombre);
 
-      /* 🛑 VALIDAR 2 NOMBRES + 2 APELLIDOS */
+      /* VALIDAR 2 NOMBRES + 2 APELLIDOS */
       const partes = nombreNormalizado.split(" ");
       if (partes.length !== 4) {
         setMensaje("Ingresa exactamente 2 nombres y 2 apellidos");
         return;
       }
 
-      /* 🔐 VALIDAR INVITADO */
+      /* VALIDAR INVITADO */
       const invitado = obtenerInvitado(nombreNormalizado);
       if (!invitado) {
         setMensaje("Tu nombre no se encuentra en la lista de invitados");
         return;
       }
 
-      /* 🎟️ VALIDAR LÍMITE DE PASES */
+      /* VALIDAR LÍMITE DE PASES */
       if (Number(invitados) > invitado.max) {
         setMensaje(`Solo tienes permitido ${invitado.max} pase(s)`);
         return;
@@ -80,7 +80,7 @@ export default function RSVP() {
 
       const BASE_URL = window.location.origin;
 
-      /* 🔵 YA REGISTRADO */
+      /* YA REGISTRADO */
       if (existente) {
         const qrText =
           existente.qr_code ||
@@ -95,7 +95,7 @@ export default function RSVP() {
         return;
       }
 
-      /* 🟢 REGISTRO NUEVO */
+      /* REGISTRO NUEVO */
       const { data, error } = await supabase
         .from("rsvp")
         .insert([
@@ -132,7 +132,7 @@ export default function RSVP() {
     }
   };
 
-  /* 📅 GOOGLE CALENDAR */
+  /* GOOGLE CALENDAR */
   const addToCalendar = () => {
     const url =
       "https://www.google.com/calendar/render?action=TEMPLATE&text=Boda&dates=20260418T163000/20260418T230000&details=Celebración%20de%20boda";
@@ -144,7 +144,7 @@ export default function RSVP() {
       id="confirmacion"
       className="section fade-in-section paper-bg"
     >
-      {/* 🌸 FLOR DECORATIVA */}
+      {/* FLOR DECORATIVA */}
       <div className="paper-flower-right"></div>
 
       {!qrData && (
