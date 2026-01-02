@@ -36,25 +36,29 @@
 
 /* ===== CAPAS DEL SOBRE ===== */
 
-/* Triángulo superior */
+/* Triángulo superior - ESTRATEGIA DESKTOP */
 .arriba {
   position: absolute;
-  inset: 0;
-  object-fit: contain;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
+  height: 65vh; /* ✅ Aumentado de 50vh a 65vh para cubrir más ancho en desktop */
+  object-fit: cover; /* ✅ Cover en desktop para llenar ancho */
+  object-position: center 65%; /* ✅ Muestra más de la parte inferior del triángulo */
   z-index: 3;
   transform-origin: top center;
   transition: transform 1s ease;
 }
 
-/* Triángulo inferior */
+/* Triángulo inferior - ESTRATEGIA DESKTOP */
 .abajo {
   position: absolute;
-  inset: 0;
-  object-fit: contain;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
+  height: 65vh; /* ✅ Aumentado de 50vh a 65vh para cubrir más ancho en desktop */
+  object-fit: cover; /* ✅ Cover en desktop para llenar ancho */
+  object-position: center 35%; /* ✅ Muestra la punta del triángulo */
   z-index: 1;
 }
 
@@ -77,7 +81,7 @@
 }
 
 .sobre.abierto .arriba {
-  transform: rotateX(-155deg);
+  transform: rotateX(-155deg); /* ✅ Sin translateX ahora */
 }
 
 .sobre.abierto .sello {
@@ -144,8 +148,20 @@
     background-size: cover;
   }
 
+  /* Ajustes específicos para móvil */
+  .arriba {
+    height: 55vh; /* ✅ Más altura en móvil */
+    object-position: center 70%; /* ✅ Ajuste para móvil */
+  }
+
+  .abajo {
+    height: 55vh; /* ✅ Más altura en móvil */
+    object-position: center 30%; /* ✅ Ajuste para móvil */
+  }
+
   .sello {
     width: clamp(100px, 28vw, 150px);
+    top: 50%; /* ✅ Centrado verticalmente */
   }
 
   .flor {
