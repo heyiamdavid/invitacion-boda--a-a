@@ -29,19 +29,19 @@ export default function Envelope({ onOpen }) {
 
       <div className={`sobre ${open ? "abierto" : ""}`} onClick={handleOpen}>
         <img
-          src="/assets/sobre/mw-env-bottom-layer.png"
+          src="/assets/sobre/mw-env-bottom-layer.webp"
           className="abajo"
           alt="Triángulo abajo"
         />
 
         <img
-          src="/assets/sobre/mw-env-middle-layer.png"
+          src="/assets/sobre/mw-env-middle-layer.webp"
           className="cuadrado"
           alt="Cuerpo del sobre"
         />
 
         <img
-          src="/assets/sobre/mw-env-top-layer.png"
+          src="/assets/sobre/mw-env-top-layer.webp"
           className="arriba"
           alt="Triángulo arriba"
         />
