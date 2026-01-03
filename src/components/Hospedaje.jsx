@@ -2,7 +2,7 @@ export default function Hospedaje() {
   const place = {
     name: "Hostería Rayo Rojo",
     address: "Av. Malecón, Salinas, Ecuador",
-    img: "./assets/images/hospedaje.jpg",
+    img: "./assets/images/hospedaje.webp",
 
     // Place ID de Google Maps
     placeId: "ChIJ43R56P8NLpARTkMzHEAVa9o",

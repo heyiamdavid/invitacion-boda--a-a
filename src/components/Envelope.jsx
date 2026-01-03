@@ -17,12 +17,12 @@ export default function Envelope({ onOpen }) {
   return (
     <div id="sobre-container">
       <img
-        src="/assets/images/flor-dorada.png"
+        src="/assets/images/flor-dorada.webp"
         className="flor flor-izq"
         alt="Flor izquierda"
       />
       <img
-        src="/assets/images/flor-lado-dorada.png"
+        src="/assets/images/flor-lado-dorada.webp"
         className="flor flor-der"
         alt="Flor derecha"
       />
@@ -47,7 +47,7 @@ export default function Envelope({ onOpen }) {
         />
 
         <img
-          src="/assets/images/sello.png"
+          src="/assets/images/sello.webp"
           className="sello"
           alt="Sello"
         />

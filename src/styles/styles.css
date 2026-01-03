@@ -213,7 +213,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('/assets/images/fondo_blanco.jpeg');
+  background-image: url('/assets/images/fondo_blanco.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -228,7 +228,7 @@ body {
   left: 0;
   width: 400px;
   height: 400px;
-  background-image: url('/assets/images/flor_dorada_izquierda.png');
+  background-image: url('/assets/images/flor_dorada_izquierda.webp');
   background-size: contain;
   background-position: bottom left;
   background-repeat: no-repeat;
@@ -243,7 +243,7 @@ body {
   right: 0;
   width: 400px;
   height: 400px;
-  background-image: url('/assets/images/flor_dorada_derecha.png');
+  background-image: url('/assets/images/flor_dorada_derecha.webp');
   background-size: contain;
   background-position: bottom right;
   background-repeat: no-repeat;
@@ -910,7 +910,7 @@ body.menu-open {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("/assets/images/fondo_blanco.jpeg");
+  background-image: url("/assets/images/fondo_blanco.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -927,7 +927,7 @@ body.menu-open {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("/assets/images/fondo_blanco.jpeg");
+  background-image: url("/assets/images/fondo_blanco.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -942,7 +942,7 @@ body.menu-open {
   left: 0;
   width: 400px;
   height: 400px;
-  background-image: url("/assets/images/flor_dorada_izquierda.png");
+  background-image: url("/assets/images/flor_dorada_izquierda.webp");
   background-size: contain;
   background-position: bottom left;
   background-repeat: no-repeat;
@@ -957,7 +957,7 @@ body.menu-open {
   right: 0;
   width: 400px;
   height: 400px;
-  background-image: url("/assets/images/flor_dorada_derecha.png");
+  background-image: url("/assets/images/flor_dorada_derecha.webp");
   background-size: contain;
   background-position: bottom right;
   background-repeat: no-repeat;

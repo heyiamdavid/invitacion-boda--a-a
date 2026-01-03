@@ -21,7 +21,7 @@ export default function Events() {
 
   const events = [
     {
-      icon: "/assets/images/anillo-icon.png",
+      icon: "/assets/images/anillo-icon.webp",
       title: "Ceremonia",
       date: "18 de Abril, 2026",
       time: "4:30 PM – 5:30 PM",
@@ -30,7 +30,7 @@ export default function Events() {
       showMaps: true,
     },
     {
-      icon: "/assets/images/lista-icon.png",
+      icon: "/assets/images/lista-icon.webp",
       title: "Recepción",
       date: "18 de Abril, 2026",
       time: "5:30 PM – 10:00 PM",
@@ -39,7 +39,7 @@ export default function Events() {
       showMaps: true,
     },
     {
-      icon: "/assets/images/vestimenta-icon.png",
+      icon: "/assets/images/vestimenta-icon.webp",
       title: "Código de Vestimenta",
       date: "Cocktail",
       time: "El color blanco y el beige están reservados para los novios",

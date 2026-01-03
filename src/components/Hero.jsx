@@ -7,7 +7,7 @@ export default function Hero() {
         {/* Logo del monograma M & J */}
         <div className="hero-logo">
           <img 
-            src="/assets/images/logo_colores.png" 
+            src="/assets/images/logo_colores.webp" 
             alt="Maria y Jhon - Monograma" 
           />
         </div>

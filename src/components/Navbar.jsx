@@ -31,7 +31,7 @@ export default function Navbar() {
           {/* Brand */}
 <a href="#inicio" className="brand">
   <div className="brand-logo">
-    <img src="/assets/images/logo_colores.png" alt="Logo Maria y Jhon" />
+    <img src="/assets/images/logo_colores.webp" alt="Logo Maria y Jhon" />
   </div>
   <div className="brand-text">Nuestra Boda</div>
 </a>
