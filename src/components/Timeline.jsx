@@ -29,21 +29,11 @@ export default function Timeline() {
     },
     {
       title: "Fiesta",
-      time: "11:00 PM – 3:00 AM",
+      time: "10:00 PM – 11:00 PM",
       desc: "¡Disfruten la música en vivo!",
       icon: (
         <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M40 10v28.5a6.5 6.5 0 1 1-2-4.6V16l-14 4v18.5a6.5 6.5 0 1 1-2-4.6V18l18-6z"/>
-        </svg>
-      )
-    },
-    {
-      title: "Trasnochado",
-      time: "3:00 AM – 6:00 AM",
-      desc: "Para los más desvelados.",
-      icon: (
-        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M40 6a22 22 0 1 0 18 36 22 22 0 0 1-18-36z"/>
         </svg>
       )
     }

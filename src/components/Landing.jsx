@@ -13,19 +13,21 @@ import MusicButton from "../components/MusicButton";
 export default function Landing() {
   const [opened, setOpened] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [musicStarted, setMusicStarted] = useState(false);
 
+  /* ✉️ CLICK EN EL SOBRE */
   const handleOpen = () => {
     setOpened(true);
+    setMusicStarted(true); // 🎵 DESBLOQUEA EL AUDIO
   };
 
+  /* 🚫 BLOQUEAR SCROLL HASTA ABRIR */
   useEffect(() => {
     document.body.style.overflow = opened ? "auto" : "hidden";
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
+    return () => (document.body.style.overflow = "auto");
   }, [opened]);
 
+  /* ✨ FADE IN SECCIONES */
   useEffect(() => {
     const sections = document.querySelectorAll(".fade-in-section");
 
@@ -42,14 +44,15 @@ export default function Landing() {
     );
 
     sections.forEach((sec) => observer.observe(sec));
-
     return () => observer.disconnect();
   }, []);
 
   return (
     <>
+      {/* ✉️ SOBRE */}
       {!opened && <Envelope onOpen={handleOpen} />}
 
+      {/* 📄 CONTENIDO */}
       {opened && (
         <>
           <Navbar onMenuToggle={setMenuOpen} />
@@ -63,10 +66,14 @@ export default function Landing() {
             <RSVP />
             <Footer />
           </main>
-
-          {!menuOpen && <MusicButton />}
         </>
       )}
+
+      {/* 🎵 SIEMPRE MONTADO */}
+      <MusicButton
+        startMusic={musicStarted}
+        hidden={!opened || menuOpen}
+      />
     </>
   );
 }

@@ -13,11 +13,15 @@ import MusicButton from "../components/MusicButton";
 
 export default function Landing() {
   const [open, setOpen] = useState(false);
+  const [startMusic, setStartMusic] = useState(false);
 
   return (
     <>
       {!open ? (
-        <Envelope onOpen={() => setOpen(true)} />
+        <Envelope
+          onOpen={() => setOpen(true)}
+          onStartMusic={() => setStartMusic(true)}
+        />
       ) : (
         <>
           <Navbar />
@@ -29,9 +33,9 @@ export default function Landing() {
           <Gallery />
           <RSVP />
           <Footer />
-          <MusicButton />
         </>
       )}
+      <MusicButton startMusic={startMusic} hidden={!open} />
     </>
   );
 }

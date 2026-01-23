@@ -1,13 +1,14 @@
 import { useState } from "react";
 import "../styles/envelope.css";
 
-export default function Envelope({ onOpen }) {
+export default function Envelope({ onOpen, onStartMusic }) {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     if (open) return;
 
     setOpen(true);
+    if (onStartMusic) onStartMusic(); // 🔥 Iniciar música al click
 
     setTimeout(() => {
       if (onOpen) onOpen();
