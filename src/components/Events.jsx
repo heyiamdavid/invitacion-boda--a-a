@@ -41,15 +41,13 @@ export default function Events() {
     {
       icon: "/assets/images/vestimenta-icon.webp",
       title: "Código de Vestimenta",
-      date: "Forma - Rigurosa",
       time: "Ellos traje formal deberán usar, ellas de vestido largo estarán... Y juntos puntualmente llegarán. El color blanco y beige están reservados para los novios.",
       showMaps: false,
     },
     {
       icon: "/assets/images/regalo.webp",
       title: "Regalos",
-      date: "Lluvia de sobres",
-      time: "Su presencia es nuestro mayor regalo. Agradecemos mucho que tu regalo sea en sobre cerrado.",
+      time: "Agradecemos mucho que tu regalo sea en sobre cerrado.",
       showMaps: false,
     },
   ];
