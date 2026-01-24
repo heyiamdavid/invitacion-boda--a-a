@@ -2,7 +2,9 @@ import { FaWhatsapp } from "react-icons/fa";
 
 export default function Contact() {
     return (
-        <section id="dudas" className="section fade-in-section paper-bg-clean" style={{ paddingBottom: "10px" }}>
+        <section id="dudas" className="section fade-in-section paper-bg" style={{ paddingBottom: "10px" }}>
+            {/* Flor derecha */}
+            <div className="paper-flower-right"></div>
             <div className="section-content" style={{ textAlign: "center", maxWidth: "800px", margin: "0 auto" }}>
 
                 {/* Título Serif */}
