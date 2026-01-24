@@ -24,7 +24,7 @@
   height: 100vh;
 
   /* 🔥 Se comporta como el ejemplo verde */
-  background-image: url("/assets/sobre/sobrecuadrado.webp");
+  background-image: url("/assets/sobre/fondo_blanco.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

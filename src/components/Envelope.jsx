@@ -36,7 +36,7 @@ export default function Envelope({ onOpen, onStartMusic }) {
         />
 
         <img
-          src="/assets/sobre/sobrecuadrado.webp"
+          src="/assets/sobre/fondo_blanco.jpg"
           className="cuadrado"
           alt="Cuerpo del sobre"
         />
