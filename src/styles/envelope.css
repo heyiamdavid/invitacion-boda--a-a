@@ -24,7 +24,7 @@
   height: 100vh;
 
   /* 🔥 Se comporta como el ejemplo verde */
-  background-image: url("/assets/sobre/mw-env-middle-layer.webp");
+  background-image: url("/assets/sobre/sobrecuadrado.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -37,17 +37,18 @@
 /* ===== CAPAS DEL SOBRE ===== */
 
 /* Triángulo superior - ESTRATEGIA DESKTOP */
+/* Triángulo superior - ESTRATEGIA DESKTOP */
 .arriba {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 65vh;
-  /* ✅ Aumentado de 50vh a 65vh para cubrir más ancho en desktop */
+  /* ✅ Revertido a 65vh */
   object-fit: cover;
-  /* ✅ Cover en desktop para llenar ancho */
-  object-position: center 65%;
-  /* ✅ Muestra más de la parte inferior del triángulo */
+  /* ✅ Revertido a cover para mantener responsive */
+  object-position: center bottom;
+  /* ✅ Ajustado a bottom para que la punta se vea completa */
   z-index: 3;
   transform-origin: top center;
   transition: transform 1s ease;
@@ -72,9 +73,11 @@
 .sello {
   position: absolute;
   top: 55%;
+  /* ✅ Revertido a 55% */
   left: 50%;
   transform: translate(-50%, -50%) scale(1);
   width: clamp(110px, 18vw, 190px);
+  /* ✅ Revertido a tamaño original */
   z-index: 5;
 
   animation: sealPop .6s ease-out forwards .9s,

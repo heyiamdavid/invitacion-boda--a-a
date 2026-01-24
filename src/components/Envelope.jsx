@@ -30,19 +30,19 @@ export default function Envelope({ onOpen, onStartMusic }) {
 
       <div className={`sobre ${open ? "abierto" : ""}`} onClick={handleOpen}>
         <img
-          src="/assets/sobre/mw-env-bottom-layer.webp"
+          src="/assets/sobre/sobreabajo.webp"
           className="abajo"
           alt="Triángulo abajo"
         />
 
         <img
-          src="/assets/sobre/mw-env-middle-layer.webp"
+          src="/assets/sobre/sobrecuadrado.webp"
           className="cuadrado"
           alt="Cuerpo del sobre"
         />
 
         <img
-          src="/assets/sobre/mw-env-top-layer.webp"
+          src="/assets/sobre/sobrearriba.webp"
           className="arriba"
           alt="Triángulo arriba"
         />
