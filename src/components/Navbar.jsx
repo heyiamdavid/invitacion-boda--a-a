@@ -17,7 +17,7 @@ export default function Navbar() {
   const links = [
     { id: "inicio", label: "Nos Casamos" },
     { id: "cuando-donde", label: "Cuándo y Dónde" },
-    { id: "minuto-minuto", label: "Minuto a Minuto" },
+    { id: "minuto-minuto", label: "Programación y Horarios" },
     { id: "hospedaje", label: "Hospedaje" },
     { id: "galeria", label: "Galería" },
     { id: "confirmacion", label: "Confirmación" },
@@ -29,12 +29,12 @@ export default function Navbar() {
         <div className="navbar-inner">
 
           {/* Brand */}
-<a href="#inicio" className="brand">
-  <div className="brand-logo">
-    <img src="/assets/images/logo_colores.webp" alt="Logo Maria y Jhon" />
-  </div>
-  <div className="brand-text">Nuestra Boda</div>
-</a>
+          <a href="#inicio" className="brand">
+            <div className="brand-logo">
+              <img src="/assets/images/logo_colores.webp" alt="Logo Maria y Jhon" />
+            </div>
+            <div className="brand-text">Nuestra Boda</div>
+          </a>
 
 
           {/* Links desktop */}
@@ -61,7 +61,7 @@ export default function Navbar() {
 
       {/* MENU MÓVIL */}
       <nav className={`mobile-menu ${menuOpen ? "show" : ""}`}>
-        
+
         {/* Botón X para cerrar */}
         <button
           className="close-menu-btn"

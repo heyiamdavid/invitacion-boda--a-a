@@ -33,11 +33,11 @@ export default function Countdown() {
   };
 
   return (
-  
-    <section id="countdown" className="countdown fade-in-section paper-bg-clean">
-      <h2 className="countdown-title">18 de abril del 2026</h2>
 
-      <p className="countdown-date">Faltan</p>
+    <section id="countdown" className="countdown fade-in-section paper-bg-clean">
+      <h3 className="countdown-title">¡Cada vez falta menos para celebrar todos juntos este mágico día!</h3>
+
+      <p className="countdown-date">Nos vemos el sábado 18 de abril del 2026</p>
 
       <div className="countdown-grid">
         {Object.entries(time).map(([label, value]) => (

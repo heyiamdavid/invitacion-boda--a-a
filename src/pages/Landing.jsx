@@ -1,4 +1,4 @@
-import { useState } from "react"; // ✅ AGREGADO
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Envelope from "../components/Envelope";
@@ -8,6 +8,7 @@ import Gallery from "../components/Gallery";
 import RSVP from "../components/RSVP";
 import Countdown from "../components/Countdown";
 import Events from "../components/Events";
+import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 import MusicButton from "../components/MusicButton";
 
@@ -32,6 +33,7 @@ export default function Landing() {
           <Hospedaje />
           <Gallery />
           <RSVP />
+          <Contact />
           <Footer />
         </>
       )}

@@ -40,18 +40,18 @@ body {
   --color-accent: #C9A875;
   --color-accent-light: #E5D4B5;
   --color-accent-dark: #A68A5F;
-  
+
   /* Tonos neutros */
   --color-light: #FAF7F2;
   --color-beige: #E8DED0;
   --color-beige-medium: #D4C4B0;
   --color-dark: #2F2F2F;
-  
+
   /* Tonos de fondo */
   --color-bg-primary: #FFFFFF;
   --color-bg-secondary: #F5F0E8;
   --color-bg-tertiary: #EBE4D7;
-  
+
   /* Colores funcionales */
   --color-success: #7B9971;
   --color-error: #C75450;
@@ -68,7 +68,7 @@ body {
   background: var(--color-bg-primary);
   color: var(--color-primary);
   border-bottom: 1px solid var(--color-beige);
-  box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
   z-index: 5000;
   display: flex;
   justify-content: center;
@@ -269,6 +269,20 @@ body.menu-open {
   text-align: center;
 }
 
+/* Texto superior "Nos casamos" */
+.hero-top-text {
+  font-family: "Amsterdam Three", cursive;
+  font-size: clamp(2.5rem, 5vw, 3rem);
+  color: var(--color-dark);
+  margin-top: 80px;
+  /* Spacer for fixed navbar */
+  margin-bottom: 5px;
+  font-weight: 400;
+  animation: fadeInScale 1.2s ease-out;
+  position: relative;
+  z-index: 10;
+}
+
 /* Logo con monograma */
 .hero-logo {
   width: 280px;
@@ -357,6 +371,7 @@ body.menu-open {
     opacity: 0;
     transform: scale(0.85);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -368,6 +383,7 @@ body.menu-open {
     opacity: 0;
     transform: translateY(25px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -405,21 +421,22 @@ body.menu-open {
 
 /* Móviles */
 @media (max-width: 767px) {
+
   .hero::after,
   .hero-overlay {
     width: 250px;
     height: 250px;
   }
-  
+
   .hero-logo {
     width: 200px;
     height: 200px;
   }
-  
+
   .hero-title {
     font-size: 2.5rem;
   }
-  
+
   .hero-button {
     padding: 14px 32px;
     font-size: 1rem;
@@ -428,12 +445,13 @@ body.menu-open {
 
 /* Tablets */
 @media (min-width: 768px) and (max-width: 1023px) {
+
   .hero::after,
   .hero-overlay {
     width: 320px;
     height: 320px;
   }
-  
+
   .hero-logo {
     width: 240px;
     height: 240px;
@@ -442,6 +460,7 @@ body.menu-open {
 
 /* Desktop grande */
 @media (min-width: 1440px) {
+
   .hero::after,
   .hero-overlay {
     width: 500px;
@@ -497,7 +516,7 @@ body.menu-open {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: transform .3s ease, box-shadow .3s ease;
 }
 
@@ -598,14 +617,22 @@ body.menu-open {
   border-radius: 15px;
   padding: 25px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: all .3s ease;
 }
 
 .evento-card:hover {
   transform: translateY(-8px);
   border-color: var(--color-accent);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.evento-card h3 {
+  font-family: "Amsterdam Three", cursive;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--color-primary);
+  margin-bottom: 15px;
 }
 
 .evento-icon {
@@ -661,7 +688,7 @@ body.menu-open {
   background: var(--color-bg-tertiary);
   border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--color-beige);
   max-width: 900px;
   margin: 0 auto 40px;
@@ -687,7 +714,7 @@ body.menu-open {
 .hotel-card:hover {
   transform: translateY(-8px);
   border-color: var(--color-accent);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
 .hotel-img {
@@ -738,7 +765,7 @@ body.menu-open {
   background: var(--color-bg-tertiary);
   border-radius: 16px;
   padding: 50px 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--color-beige);
   max-width: 1100px;
   margin: 0 auto;
@@ -787,6 +814,14 @@ body.menu-open {
   height: 60px;
   margin: 0 auto;
   color: var(--color-accent);
+}
+
+.timeline-heading {
+  font-family: "Amsterdam Three", cursive;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--color-primary);
+  margin-bottom: 5px;
 }
 
 .timeline-heart {
@@ -839,7 +874,7 @@ body.menu-open {
   padding-bottom: 100%;
   border-radius: 12px;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   border: 2px solid var(--color-beige);
   background: var(--color-bg-primary);
   transition: all .3s ease;
@@ -848,7 +883,7 @@ body.menu-open {
 .gallery-item:hover {
   transform: scale(1.03);
   border-color: var(--color-accent);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
 .gallery-item img {
@@ -872,7 +907,9 @@ body.menu-open {
 }
 
 .gallery-toggle-btn {
-  display: inline-block;; /* Oculto por defecto en desktop */
+  display: inline-block;
+  ;
+  /* Oculto por defecto en desktop */
   background: var(--color-accent);
   color: var(--color-primary);
   padding: 14px 32px;
@@ -893,6 +930,7 @@ body.menu-open {
     font-size: 1.1rem;
   }
 }
+
 .gallery-toggle-btn:hover {
   background: var(--color-accent-dark);
   transform: translateY(-2px);
@@ -917,6 +955,7 @@ body.menu-open {
   background: #FAF7F2;
   overflow: hidden;
 }
+
 /* ---------- FONDO PAPEL SIN FLORES ---------- */
 
 .paper-bg-clean {
@@ -938,10 +977,11 @@ body.menu-open {
 }
 
 /* Contenido siempre arriba */
-.paper-bg-clean > * {
+.paper-bg-clean>* {
   position: relative;
   z-index: 5;
 }
+
 /* Fondo blanco tipo papel */
 .paper-bg::before {
   content: "";
@@ -986,13 +1026,14 @@ body.menu-open {
 }
 
 /* Contenido siempre arriba */
-.paper-bg > * {
+.paper-bg>* {
   position: relative;
   z-index: 5;
 }
 
 /* Responsive flores */
 @media (max-width: 767px) {
+
   .paper-bg::after,
   .paper-bg .paper-flower-right {
     width: 250px;
@@ -1006,7 +1047,7 @@ body.menu-open {
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.95);
+  background: rgba(0, 0, 0, 0.95);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1026,7 +1067,7 @@ body.menu-open {
   transform: translateY(-50%);
   font-size: 3rem;
   color: var(--color-light);
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   border: none;
   padding: 5px 15px;
   border-radius: 8px;
@@ -1035,8 +1076,13 @@ body.menu-open {
   transition: all .3s ease;
 }
 
-.lightbox-btn.left { left: 20px; }
-.lightbox-btn.right { right: 20px; }
+.lightbox-btn.left {
+  left: 20px;
+}
+
+.lightbox-btn.right {
+  right: 20px;
+}
 
 .lightbox-btn:hover {
   background: var(--color-accent);
@@ -1052,7 +1098,7 @@ body.menu-open {
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   border: 2px solid var(--color-accent-light);
 }
 
@@ -1073,6 +1119,7 @@ body.menu-open {
   letter-spacing: 1.2px;
   color: var(--color-primary);
 }
+
 .rsvp-form {
   display: flex;
   flex-direction: column;
@@ -1157,7 +1204,7 @@ body.menu-open {
   border-radius: 16px;
   background: var(--color-bg-primary);
   border: 2px solid var(--color-accent);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .qr-name {
@@ -1219,7 +1266,7 @@ body.menu-open {
   padding: 20px;
   border-radius: 20px;
   border: 2px solid var(--color-accent);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1262,7 +1309,7 @@ body.menu-open {
   background: var(--color-bg-primary);
   padding: 30px;
   border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   text-align: center;
   border: 2px solid var(--color-beige);
 }
@@ -1366,10 +1413,12 @@ body.menu-open {
     transform: scale(1);
     box-shadow: 0 8px 25px rgba(201, 168, 117, 0.25);
   }
+
   50% {
     transform: scale(1.06);
     box-shadow: 0 14px 35px rgba(201, 168, 117, 0.45);
   }
+
   100% {
     transform: scale(1);
     box-shadow: 0 8px 25px rgba(201, 168, 117, 0.25);
@@ -1381,8 +1430,13 @@ body.menu-open {
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ---------- FOOTER ---------- */
@@ -1408,6 +1462,7 @@ footer p:first-child {
   margin-top: 10px;
   color: var(--color-accent);
 }
+
 /* ---------- ESPACIADO GENERAL ---------- */
 
 #main-content {
@@ -1421,13 +1476,14 @@ footer p:first-child {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.section + .timeline {
+.section+.timeline {
   margin-top: -20px;
   border-top: 3px dashed var(--color-accent-light);
   padding-top: 60px;
