@@ -21,6 +21,7 @@ export default function Navbar() {
     { id: "hospedaje", label: "Hospedaje" },
     { id: "galeria", label: "Galería" },
     { id: "confirmacion", label: "Confirmación" },
+    { id: "comparte", label: "Comparte" },
     { id: "dudas", label: "Dudas" },
   ];
 

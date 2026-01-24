@@ -42,9 +42,12 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 65vh; /* ✅ Aumentado de 50vh a 65vh para cubrir más ancho en desktop */
-  object-fit: cover; /* ✅ Cover en desktop para llenar ancho */
-  object-position: center 65%; /* ✅ Muestra más de la parte inferior del triángulo */
+  height: 65vh;
+  /* ✅ Aumentado de 50vh a 65vh para cubrir más ancho en desktop */
+  object-fit: cover;
+  /* ✅ Cover en desktop para llenar ancho */
+  object-position: center 65%;
+  /* ✅ Muestra más de la parte inferior del triángulo */
   z-index: 3;
   transform-origin: top center;
   transition: transform 1s ease;
@@ -56,9 +59,12 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 65vh; /* ✅ Aumentado de 50vh a 65vh para cubrir más ancho en desktop */
-  object-fit: cover; /* ✅ Cover en desktop para llenar ancho */
-  object-position: center 35%; /* ✅ Muestra la punta del triángulo */
+  height: 65vh;
+  /* ✅ Aumentado de 50vh a 65vh para cubrir más ancho en desktop */
+  object-fit: cover;
+  /* ✅ Cover en desktop para llenar ancho */
+  object-position: center 35%;
+  /* ✅ Muestra la punta del triángulo */
   z-index: 1;
 }
 
@@ -72,7 +78,7 @@
   z-index: 5;
 
   animation: sealPop .6s ease-out forwards .9s,
-             sealPulse 2.5s infinite ease-in-out 2s;
+    sealPulse 2.5s infinite ease-in-out 2s;
 }
 
 /* ===== ESTADO ABIERTO ===== */
@@ -81,7 +87,8 @@
 }
 
 .sobre.abierto .arriba {
-  transform: rotateX(-155deg); /* ✅ Sin translateX ahora */
+  transform: rotateX(-155deg);
+  /* ✅ Sin translateX ahora */
 }
 
 .sobre.abierto .sello {
@@ -94,7 +101,16 @@
   width: clamp(220px, 28vw, 420px);
   pointer-events: none;
   opacity: .92;
-  z-index: 10; /* Siempre encima del sobre */
+  z-index: 10;
+  /* Siempre encima del sobre */
+  transition: opacity 1s ease, filter 1s ease, transform 1s ease;
+}
+
+/* Fade out flowers with envelope */
+#sobre-container.hidden .flor {
+  opacity: 0;
+  filter: blur(20px);
+  transform: scale(1.2);
 }
 
 .flor-izq {
@@ -109,35 +125,82 @@
 
 /* ===== ANIMACIONES ===== */
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
 
 @keyframes fadeOutBlur {
-  from { opacity: 1; filter: blur(0); }
-  to { opacity: 0; filter: blur(20px); transform: scale(1.2); }
+  from {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 0;
+    filter: blur(20px);
+    transform: scale(1.2);
+  }
 }
 
 @keyframes envelopeDrop {
-  from { opacity: 0; transform: translateY(-40px) scale(0.96); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes sealPop {
-  0% { transform: translate(-50%, -50%) scale(0); }
-  100% { transform: translate(-50%, -50%) scale(1); }
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 @keyframes sealPulse {
-  0%,100% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -50%) scale(1.15); }
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.15);
+  }
 }
 
 @keyframes sealHide {
-  to { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
 }
 
 @keyframes zoomReveal {
-  0% { transform: scale(1); filter: blur(0); opacity: 1; }
-  100% { transform: scale(1.35); filter: blur(5px); opacity: 0; }
+  0% {
+    transform: scale(1);
+    filter: blur(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.35);
+    filter: blur(5px);
+    opacity: 0;
+  }
 }
 
 /* ===== RESPONSIVE PARA MOVIL ===== */
@@ -150,18 +213,23 @@
 
   /* Ajustes específicos para móvil */
   .arriba {
-    height: 55vh; /* ✅ Más altura en móvil */
-    object-position: center 70%; /* ✅ Ajuste para móvil */
+    height: 55vh;
+    /* ✅ Más altura en móvil */
+    object-position: center 70%;
+    /* ✅ Ajuste para móvil */
   }
 
   .abajo {
-    height: 55vh; /* ✅ Más altura en móvil */
-    object-position: center 30%; /* ✅ Ajuste para móvil */
+    height: 55vh;
+    /* ✅ Más altura en móvil */
+    object-position: center 30%;
+    /* ✅ Ajuste para móvil */
   }
 
   .sello {
     width: clamp(100px, 28vw, 150px);
-    top: 50%; /* ✅ Centrado verticalmente */
+    top: 50%;
+    /* ✅ Centrado verticalmente */
   }
 
   .flor {

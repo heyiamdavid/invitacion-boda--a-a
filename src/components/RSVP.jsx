@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 import QRDisplay from "./QRDisplay";
 
@@ -29,7 +29,7 @@ function obtenerInvitado(nombreNormalizado) {
   );
 }
 
-export default function RSVP() {
+export default function RSVP({ onLogin }) {
   const [nombre, setNombre] = useState("");
   const [invitados, setInvitados] = useState(1);
   const [mensaje, setMensaje] = useState("");
@@ -37,9 +37,27 @@ export default function RSVP() {
   const [loading, setLoading] = useState(false);
   const [rsvpStep, setRsvpStep] = useState("initial"); // initial | attending | notAttending | notAttendingThanks
 
+  // 🔄 RESTORE SESSION FROM LOCAL STORAGE
+  // 🔄 RESTORE SESSION FROM LOCAL STORAGE
+  useEffect(() => {
+    const storedId = localStorage.getItem("boda_guest_id");
+    const storedName = localStorage.getItem("boda_guest_name");
+
+    console.log("RSVP: Restoring session...", { storedId, storedName });
+
+    if (storedId && storedName) {
+      console.log("RSVP: Calling onLogin from restore");
+      if (onLogin) onLogin(storedId, storedName);
+      const BASE_URL = window.location.origin;
+      const qrText = `${BASE_URL}/confirmacion?id=${storedId}`;
+      setQrData({ value: qrText, nombre: storedName });
+    }
+  }, [onLogin]);
+
   /* 🟢 ASISTIRÉ */
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("RSVP: handleSubmit");
     setMensaje("");
     setLoading(true);
 
@@ -91,6 +109,9 @@ export default function RSVP() {
       if (existente) {
         // Si ya existe y tenía invitados > 0, mostramos QR
         if (existente.invitados > 0) {
+          console.log("RSVP: User already exists, restoring session via onLogin");
+          if (onLogin) onLogin(existente.id, existente.nombre);
+
           const qrText = existente.qr_code || `${BASE_URL}/confirmacion?id=${existente.id}`;
           setQrData({ value: qrText, nombre: existente.nombre });
           setMensaje("Ya te encuentras registrado");
@@ -117,6 +138,9 @@ export default function RSVP() {
           const qrText = `${BASE_URL}/confirmacion?id=${existente.id}`;
           await supabase.from("rsvp").update({ qr_code: qrText }).eq("id", existente.id);
 
+          // 💾 Save to localStorage for photo upload
+          if (onLogin) onLogin(existente.id, existente.nombre);
+
           setQrData({ value: qrText, nombre: existente.nombre });
           setMensaje(`Registro actualizado. ${invitados} pase(s) confirmados.`);
         }
@@ -138,6 +162,9 @@ export default function RSVP() {
 
       const qrText = `${BASE_URL}/confirmacion?id=${data.id}`;
       await supabase.from("rsvp").update({ qr_code: qrText }).eq("id", data.id);
+
+      // 💾 Save to localStorage for photo upload
+      if (onLogin) onLogin(data.id, nombreNormalizado);
 
       setQrData({ value: qrText, nombre: nombreNormalizado });
       setMensaje(`Registro exitoso. ${invitados} pase(s) confirmados.`);
