@@ -6,6 +6,10 @@
   font-style: normal;
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 @font-face {
   font-family: "Catchy Mager";
   src: url("/assets/fonts/CatchyMager.ttf") format("truetype");
