@@ -315,6 +315,9 @@
   border: 1px solid #F5F1E8;
   flex-wrap: wrap;
   gap: 15px;
+  position: relative;
+  /* Changed from sticky to avoid mobile issues */
+  width: 100%;
 }
 
 .toolbar-info {
@@ -404,9 +407,10 @@
   justify-content: center;
   color: #A68A5F;
   font-size: 1.2rem;
-  z-index: 5;
+  z-index: 20;
+  /* Increased z-index */
   transition: all 0.2s ease;
-  border: 2px solid transparent;
+  border: 2px solid rgba(166, 138, 95, 0.5);
 }
 
 .photo-checkbox.checked {
@@ -592,20 +596,32 @@
 
   .gallery-toolbar {
     padding: 15px;
-    justify-content: center;
+    flex-direction: column;
+    /* Stack vertically on mobile */
+    align-items: stretch;
     text-align: center;
+    position: relative;
+    top: 0;
+  }
+
+  .toolbar-info {
+    margin-bottom: 5px;
   }
 
   .toolbar-actions {
     justify-content: center;
     width: 100%;
+    flex-direction: column;
+    /* Stack buttons on mobile */
+    gap: 10px;
   }
 
-  .admin-btn-primary, .admin-btn-secondary {
-    flex: 1;
+  .admin-btn-primary,
+  .admin-btn-secondary {
+    width: 100%;
     justify-content: center;
-    font-size: 0.9rem;
-    padding: 10px;
+    font-size: 1rem;
+    padding: 12px;
   }
 }
 
