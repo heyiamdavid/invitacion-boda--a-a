@@ -12,6 +12,8 @@ export default function Hero() {
           <img
             src="/assets/images/logo_colores.webp"
             alt="Maria y Jhon - Monograma"
+            importance="high"
+            fetchpriority="high"
           />
         </div>
 

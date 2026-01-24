@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import QRScanner from "./QRScanner";
 import QRDisplay from "./QRDisplay";
-import { FaUsers, FaQrcode, FaImages, FaUserCheck, FaUserTimes, FaUserClock } from "react-icons/fa";
+import { FaUsers, FaQrcode, FaImages, FaUserCheck, FaUserTimes, FaUserClock, FaDownload, FaCheckSquare, FaSquare } from "react-icons/fa";
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
 import "../styles/admin.css";
 
 export default function AdminDashboard() {
@@ -285,12 +287,92 @@ function ScannerSection() {
 // Photo Gallery Section Component
 function PhotoGallerySection({ photos }) {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [selectedIds, setSelectedIds] = useState(new Set());
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const toggleSelect = (e, photoId) => {
+    e.stopPropagation();
+    const newSelected = new Set(selectedIds);
+    if (newSelected.has(photoId)) {
+      newSelected.delete(photoId);
+    } else {
+      newSelected.add(photoId);
+    }
+    setSelectedIds(newSelected);
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === photos.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(photos.map(p => p.id)));
+    }
+  };
+
+  const downloadSelected = async () => {
+    if (selectedIds.size === 0) return;
+    setIsDownloading(true);
+
+    try {
+      const zip = new JSZip();
+      const folder = zip.folder("fotos_boda");
+
+      const downloadPromises = photos
+        .filter(p => selectedIds.has(p.id))
+        .map(async (photo, index) => {
+          try {
+            const response = await fetch(photo.url);
+            const blob = await response.blob();
+            const extension = photo.url.split('.').pop().split('?')[0] || 'jpg';
+            const filename = `foto_${index + 1}_${photo.invitado?.nombre || 'anonimo'}.${extension}`;
+            folder.file(filename, blob);
+          } catch (err) {
+            console.error(`Error downloading photo ${photo.url}:`, err);
+          }
+        });
+
+      await Promise.all(downloadPromises);
+      const content = await zip.generateAsync({ type: "blob" });
+      saveAs(content, "fotos_boda.zip");
+    } catch (error) {
+      console.error("Error generating ZIP:", error);
+      alert("Hubo un error al generar el archivo ZIP.");
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   return (
     <div className="photo-section">
+      {photos.length > 0 && (
+        <div className="gallery-toolbar">
+          <div className="toolbar-info">
+            <span>{selectedIds.size} seleccionadas</span>
+          </div>
+          <div className="toolbar-actions">
+            <button className="admin-btn-secondary" onClick={toggleSelectAll}>
+              {selectedIds.size === photos.length ? "Deseleccionar Todo" : "Seleccionar Todo"}
+            </button>
+            <button
+              className="admin-btn-primary"
+              onClick={downloadSelected}
+              disabled={selectedIds.size === 0 || isDownloading}
+            >
+              <FaDownload /> {isDownloading ? "Preparando..." : "Descargar ZIP"}
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="photo-grid">
         {photos.map((photo) => (
           <div key={photo.id} className="photo-card" onClick={() => setSelectedPhoto(photo)}>
+            <div
+              className={`photo-checkbox ${selectedIds.has(photo.id) ? 'checked' : ''}`}
+              onClick={(e) => toggleSelect(e, photo.id)}
+            >
+              {selectedIds.has(photo.id) ? <FaCheckSquare /> : <FaSquare />}
+            </div>
             <img src={photo.url} alt="Foto de boda" />
             <div className="photo-info">
               <p className="photo-uploader">

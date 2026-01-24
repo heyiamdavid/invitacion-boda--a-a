@@ -1,8 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/envelope.css";
 
 export default function Envelope({ onOpen, onStartMusic }) {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    // Preload critical images for immediate display
+    const imagesToPreload = [
+      "/assets/sobre/fondo_blanco.jpg",
+      "/assets/sobre/sobrearriba.webp",
+      "/assets/sobre/sobreabajo.webp",
+      "/assets/images/sello.webp",
+      "/assets/images/flor-dorada.webp",
+      "/assets/images/flor-lado-dorada.webp"
+    ];
+
+    imagesToPreload.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
 
   const handleOpen = () => {
     if (open) return;
@@ -19,12 +36,12 @@ export default function Envelope({ onOpen, onStartMusic }) {
     <div id="sobre-container">
       <img
         src="/assets/images/flor-dorada.webp"
-        className="flor flor-izq"
+        className={`flor flor-izq ${open ? "abierto" : ""}`}
         alt="Flor izquierda"
       />
       <img
         src="/assets/images/flor-lado-dorada.webp"
-        className="flor flor-der"
+        className={`flor flor-der ${open ? "abierto" : ""}`}
         alt="Flor derecha"
       />
 

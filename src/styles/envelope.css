@@ -109,6 +109,10 @@
   transition: opacity 1s ease, filter 1s ease, transform 1s ease;
 }
 
+.flor.abierto {
+  animation: zoomReveal 1s ease forwards;
+}
+
 /* Fade out flowers with envelope */
 #sobre-container.hidden .flor {
   opacity: 0;

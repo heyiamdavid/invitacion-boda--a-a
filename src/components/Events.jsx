@@ -50,6 +50,18 @@ export default function Events() {
       time: "Agradecemos mucho que tu regalo sea en sobre cerrado.",
       showMaps: false,
     },
+    {
+      icon: "/assets/images/logo_colores.webp",
+      title: "Acompañantes",
+      time: "Por motivos de organización y capacidad, la invitación no contempla acompañantes adicionales.",
+      showMaps: false,
+    },
+    {
+      icon: "/assets/images/logo_colores.webp",
+      title: "Niños",
+      time: "Aunque nos gustan los niños, esta será una celebración solo para adultos.",
+      showMaps: false,
+    },
   ];
 
   return (
