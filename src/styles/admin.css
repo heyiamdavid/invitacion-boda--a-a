@@ -313,6 +313,13 @@
   top: 0;
   z-index: 100;
   border: 1px solid #F5F1E8;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.toolbar-info {
+  flex: 1;
+  min-width: fit-content;
 }
 
 .toolbar-info span {
@@ -324,6 +331,7 @@
 .toolbar-actions {
   display: flex;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .admin-btn-primary,
@@ -580,6 +588,24 @@
 
   .lightbox-content img {
     max-height: 50vh;
+  }
+
+  .gallery-toolbar {
+    padding: 15px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .toolbar-actions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .admin-btn-primary, .admin-btn-secondary {
+    flex: 1;
+    justify-content: center;
+    font-size: 0.9rem;
+    padding: 10px;
   }
 }
 

@@ -38,20 +38,42 @@ export default function RSVP({ onLogin }) {
   const [rsvpStep, setRsvpStep] = useState("initial"); // initial | attending | notAttending | notAttendingThanks
 
   // 🔄 RESTORE SESSION FROM LOCAL STORAGE
-  // 🔄 RESTORE SESSION FROM LOCAL STORAGE
   useEffect(() => {
-    const storedId = localStorage.getItem("boda_guest_id");
-    const storedName = localStorage.getItem("boda_guest_name");
+    const validateSession = async () => {
+      const storedId = localStorage.getItem("boda_guest_id");
+      const storedName = localStorage.getItem("boda_guest_name");
 
-    console.log("RSVP: Restoring session...", { storedId, storedName });
+      if (!storedId || !storedName) return;
 
-    if (storedId && storedName) {
-      console.log("RSVP: Calling onLogin from restore");
-      if (onLogin) onLogin(storedId, storedName);
-      const BASE_URL = window.location.origin;
-      const qrText = `${BASE_URL}/confirmacion?id=${storedId}`;
-      setQrData({ value: qrText, nombre: storedName });
-    }
+      console.log("RSVP: Validating session...", { storedId, storedName });
+
+      try {
+        // Verificar si el ID existe en la base de datos
+        const { data, error } = await supabase
+          .from("rsvp")
+          .select("id")
+          .eq("id", storedId)
+          .maybeSingle();
+
+        if (error || !data) {
+          console.warn("RSVP: Stale session detected, clearing localStorage");
+          localStorage.removeItem("boda_guest_id");
+          localStorage.removeItem("boda_guest_name");
+          if (onLogin) onLogin(null, null);
+          return;
+        }
+
+        console.log("RSVP: Session is valid");
+        if (onLogin) onLogin(storedId, storedName);
+        const BASE_URL = window.location.origin;
+        const qrText = `${BASE_URL}/confirmacion?id=${storedId}`;
+        setQrData({ value: qrText, nombre: storedName });
+      } catch (err) {
+        console.error("RSVP: Error validating session", err);
+      }
+    };
+
+    validateSession();
   }, [onLogin]);
 
   /* 🟢 ASISTIRÉ */
