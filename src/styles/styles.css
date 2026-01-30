@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
 /* ---------- RESET ---------- */
 @font-face {
   font-family: "Amsterdam Three";
@@ -60,6 +61,11 @@ body {
   --color-success: #7B9971;
   --color-error: #C75450;
   --color-overlay: rgba(74, 63, 53, 0.7);
+}
+
+/* Utility for specific font request */
+.font-cormorant {
+  font-family: 'Cormorant Garamond', serif !important;
 }
 
 /* ---------- NAVBAR ---------- */
@@ -798,6 +804,7 @@ body.menu-open {
   top: 0;
   bottom: 0;
   left: 50%;
+
   width: 2px;
   background: var(--color-accent);
   transform: translateX(-50%);
@@ -1215,12 +1222,41 @@ body.menu-open {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
+
+/* Update buttons to use Cormorant Garamond */
+button,
+.btn,
+.hero-button,
+.rsvp-btn,
+.qr-btn,
+.btn-map,
+.btn-share,
+.qr-download,
+.admin-login-container button {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 600; /* Ensure it's legible */
+}
+
+/* Update QR Guest Name */
 .qr-name {
   margin-top: 8px;
-  font-size: .9rem;
+  font-size: 1.1rem; /* Slightly larger for the font */
   color: var(--color-primary);
-  font-weight: bold;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  text-transform: capitalize; /* Ensure capitalization */
 }
+
+/* Update any other strong tag inside QR card just in case */
+.qr-card p strong {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.qr-card p {
+   font-family: 'Cormorant Garamond', serif;
+   font-size: 1.1rem;
+}
+
 
 .qr-download {
   background: var(--color-accent);

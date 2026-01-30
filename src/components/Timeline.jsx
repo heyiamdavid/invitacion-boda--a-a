@@ -43,7 +43,7 @@ export default function Timeline() {
     <section className="section fade-in-section paper-bg-clean" id="minuto-minuto">
       <div className="timeline-wrapper">
         <h2 className="timeline-title">Programación y Horarios</h2>
-        <p style={{ textAlign: "center", marginBottom: "30px", padding: "0 20px" }}>
+        <p className="font-cormorant" style={{ textAlign: "center", marginBottom: "30px", padding: "0 20px" }}>
           Recuerda organizarte con tiempo para que no te pierdas ningún momento de esta ceremonia tan especial para nosotros.
         </p>
         <div className="timeline-grid">
@@ -58,8 +58,8 @@ export default function Timeline() {
 
               <div className="timeline-block-inner">
                 <div className="timeline-heading">{step.title}</div>
-                <div className="timeline-hour">{step.time}</div>
-                <div className="timeline-desc">{step.desc}</div>
+                <div className="timeline-hour font-cormorant">{step.time}</div>
+                <div className="timeline-desc font-cormorant">{step.desc}</div>
               </div>
             </div>
           ))}

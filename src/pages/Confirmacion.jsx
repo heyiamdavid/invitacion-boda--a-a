@@ -47,7 +47,7 @@ export default function Confirmacion() {
               Asistencia Confirmada
             </h2>
             <p className="text-gray-700 mb-2">
-              <strong>Nombre:</strong> {invitado.nombre}
+              <strong>Nombre:</strong> <span style={{textTransform: 'capitalize'}}>{invitado.nombre}</span> {params.get("n2") ? `y ${params.get("n2")}` : ""}
             </p>
             <p className="text-gray-700 mb-2">
               <strong>Invitados:</strong> {invitado.invitados}

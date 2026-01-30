@@ -81,13 +81,14 @@ export default function Events() {
               <img src={e.icon} alt={e.title} className="evento-icon" />
               <h3>{e.title}</h3>
 
-              <p><strong>{e.date}</strong></p>
-              <p>{e.time}</p>
+              <p className="font-cormorant"><strong>{e.date}</strong></p>
+              <p className="font-cormorant">{e.time}</p>
 
-              {e.place && <p>{e.place}</p>}
+              {e.place && <p className="font-cormorant">{e.place}</p>}
 
               {e.address && (
                 <p
+                  className="font-cormorant"
                   style={{
                     fontSize: "0.9rem",
                     opacity: 0.8,

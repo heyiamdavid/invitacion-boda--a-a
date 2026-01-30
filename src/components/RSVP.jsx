@@ -4,11 +4,39 @@ import QRDisplay from "./QRDisplay";
 
 /* LISTA DE INVITADOS Y LÍMITE DE PASES */
 const invitadosPermitidos = [
-  { nombre: "María Fernanda Alvarado Merchán", max: 2 },
-  { nombre: "David Isaac Alvarado Merchán", max: 1 },
-  { nombre: "Carlos Armando Salazar Jaramillo", max: 3 },
-  { nombre: "Josue Armando Salazar Merchán", max: 1 },
+  { nombre: "Olger Victor Ríos", max: 1 },
+  { nombre: "María Del Carmen Pacheco Pacheco", max: 1 },
+  { nombre: "Javier Alexander Ríos Pacheco", max: 2 },
+  { nombre: "Jairo Fabian Saltos Castro", max: 2 },
+  { nombre: "Juan Carlos Camposano Macías", max: 1 },
+  { nombre: "Kaira Antonella Mendoza Zambrano", max: 1 },
+  { nombre: "Ronald Joel García Arcos", max: 1 },
+  { nombre: "Christian David Alvarado Valarezo", max: 2 },
+  { nombre: "Kleber Mauricio Arreaga Borja", max: 1 },
+  { nombre: "Jaime Josué Montenegro Núñez", max: 2 },
+  { nombre: "Raúl Espedito Ríos", max: 2 },
+  { nombre: "Fernando Miguel Basantes Molina", max: 2 },
+  { nombre: "Elsa Luz Pacheco Pacheco", max: 1 },
+  { nombre: "Lucio Antonio Pacheco Pacheco", max: 1 },
+  { nombre: "Carlos Manuel Pacheco Pacheco", max: 2 },
+  { nombre: "Robert Douglas Quito Martínez", max: 2 },
+  { nombre: "George Hendrik Baque Parrales", max: 1 },
+  { nombre: "Lizardo William Merchán Zambrano", max: 1 },
   { nombre: "Irma Aracely Merchán Zambrano", max: 1 },
+  { nombre: "Carlos Armando Salazar Jaramillo", max: 1 },
+  { nombre: "Josué Armando Salazar Merchán", max: 1 },
+  { nombre: "David Isaac Alvarado Merchán", max: 1 },
+  { nombre: "Olga Dolores Merchán Zambrano", max: 2 },
+  { nombre: "Natacha Coromoto Holguín Rangel", max: 2 },
+  { nombre: "Adriana Elizabeth Castillo Vallejo", max: 1 },
+  { nombre: "Solange Margarita Chávez Delgado", max: 2 },
+  { nombre: "Jenniffer Cristina Galarza López", max: 1 },
+  { nombre: "Gissell Stefania Bonilla Maquilón", max: 2 },
+  { nombre: "Pamela Priscila Parrales Pincay", max: 2 },
+  { nombre: "Gema María Delgado Chávez", max: 2 },
+  { nombre: "Santa Trinidad Zambrano Solórzano", max: 1 },
+  { nombre: "Karla Mariela Macías Burgos", max: 2 },
+  { nombre: "Cristina Mariana Párraga Roca", max: 1 },
 ];
 
 /* NORMALIZAR TEXTO */
@@ -29,8 +57,17 @@ function obtenerInvitado(nombreNormalizado) {
   );
 }
 
+/* 🔡 CAPITALIZAR (Title Case) */
+function toTitleCase(str) {
+  if (!str) return "";
+  return str.toLowerCase().split(' ').map(word => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join(' ');
+}
+
 export default function RSVP({ onLogin }) {
   const [nombre, setNombre] = useState("");
+  const [nombreAcompanante, setNombreAcompanante] = useState("");
   const [invitados, setInvitados] = useState(1);
   const [mensaje, setMensaje] = useState("");
   const [qrData, setQrData] = useState(null);
@@ -51,7 +88,7 @@ export default function RSVP({ onLogin }) {
         // Verificar si el ID existe en la base de datos
         const { data, error } = await supabase
           .from("rsvp")
-          .select("id")
+          .select("id, qr_code")
           .eq("id", storedId)
           .maybeSingle();
 
@@ -66,8 +103,12 @@ export default function RSVP({ onLogin }) {
         console.log("RSVP: Session is valid");
         if (onLogin) onLogin(storedId, storedName);
         const BASE_URL = window.location.origin;
-        const qrText = `${BASE_URL}/confirmacion?id=${storedId}`;
-        setQrData({ value: qrText, nombre: storedName });
+        const n2 = data.qr_code && data.qr_code.includes('&n2=') ? decodeURIComponent(data.qr_code.split('&n2=')[1]) : "";
+        const qrText = `${BASE_URL}/confirmacion?id=${storedId}${n2 ? '&n2='+encodeURIComponent(n2) : ''}`;
+        
+        const nombreDisplay = n2 ? `${toTitleCase(storedName)} y ${toTitleCase(n2)}` : toTitleCase(storedName);
+
+        setQrData({ value: data.qr_code || qrText, nombre: nombreDisplay });
       } catch (err) {
         console.error("RSVP: Error validating session", err);
       }
@@ -134,8 +175,11 @@ export default function RSVP({ onLogin }) {
           console.log("RSVP: User already exists, restoring session via onLogin");
           if (onLogin) onLogin(existente.id, existente.nombre);
 
-          const qrText = existente.qr_code || `${BASE_URL}/confirmacion?id=${existente.id}`;
-          setQrData({ value: qrText, nombre: existente.nombre });
+          const n2 = existente.qr_code && existente.qr_code.includes('&n2=') ? decodeURIComponent(existente.qr_code.split('&n2=')[1]) : "";
+          const nombreDisplay = n2 ? `${toTitleCase(existente.nombre)} y ${toTitleCase(n2)}` : toTitleCase(existente.nombre);
+          
+          const qrText = existente.qr_code || `${BASE_URL}/confirmacion?id=${existente.id}${n2 ? '&n2='+encodeURIComponent(n2) : ''}`;
+          setQrData({ value: qrText, nombre: nombreDisplay });
           setMensaje("Ya te encuentras registrado");
         } else {
           // Si existía con 0 invitados (había dicho que no), le permitimos cambiar a sí?
@@ -157,13 +201,21 @@ export default function RSVP({ onLogin }) {
           if (updateError) throw updateError;
 
           // Generar QR para este existing
-          const qrText = `${BASE_URL}/confirmacion?id=${existente.id}`;
+          // Generar QR para este existing
+          const qrText = `${BASE_URL}/confirmacion?id=${existente.id}&n2=${encodeURIComponent(nombreAcompanante || "")}`;
           await supabase.from("rsvp").update({ qr_code: qrText }).eq("id", existente.id);
 
           // 💾 Save to localStorage for photo upload
           if (onLogin) onLogin(existente.id, existente.nombre);
 
-          setQrData({ value: qrText, nombre: existente.nombre });
+          const nombreCapitalizado = toTitleCase(nombreNormalizado);
+          const nombreAcompananteCapitalizado = toTitleCase(nombreAcompanante);
+          
+          const nombreDisplay = nombreAcompananteCapitalizado 
+            ? `${nombreCapitalizado} y ${nombreAcompananteCapitalizado}` 
+            : nombreCapitalizado;
+
+          setQrData({ value: qrText, nombre: nombreDisplay });
           setMensaje(`Registro actualizado. ${invitados} pase(s) confirmados.`);
         }
         return;
@@ -182,13 +234,19 @@ export default function RSVP({ onLogin }) {
 
       if (error) throw error;
 
-      const qrText = `${BASE_URL}/confirmacion?id=${data.id}`;
+      const qrText = `${BASE_URL}/confirmacion?id=${data.id}&n2=${encodeURIComponent(nombreAcompanante || "")}`;
       await supabase.from("rsvp").update({ qr_code: qrText }).eq("id", data.id);
 
       // 💾 Save to localStorage for photo upload
       if (onLogin) onLogin(data.id, nombreNormalizado);
 
-      setQrData({ value: qrText, nombre: nombreNormalizado });
+      const nombreCapitalizado = toTitleCase(nombreNormalizado);
+      const nombreAcompananteCapitalizado = toTitleCase(nombreAcompanante);
+       const nombreDisplay = nombreAcompananteCapitalizado 
+        ? `${nombreCapitalizado} y ${nombreAcompananteCapitalizado}` 
+        : nombreCapitalizado;
+
+      setQrData({ value: qrText, nombre: nombreDisplay });
       setMensaje(`Registro exitoso. ${invitados} pase(s) confirmados.`);
       setNombre("");
       setInvitados(1);
@@ -290,7 +348,7 @@ export default function RSVP({ onLogin }) {
           <h2 className="confirm-title">¡Gracias por confirmar!</h2>
           <p className="confirm-sub">Presenta este código el día del evento</p>
           <div className="qr-card">
-            <QRDisplay value={qrData.value} />
+            <QRDisplay value={qrData.value} label="Tu código de acceso" />
             <p><strong>Nombre:</strong> {qrData.nombre}</p>
           </div>
           <div className="qr-actions">
@@ -341,6 +399,22 @@ export default function RSVP({ onLogin }) {
                     );
                   })}
                 </select>
+                
+                {parseInt(invitados) > 1 && (
+                   <div style={{ marginTop: '15px' }}>
+                     <label style={{ display: 'block', marginBottom: '5px', fontSize: '0.9rem', color: '#666' }}>
+                       Nombre del Acompañante (Opcional):
+                     </label>
+                     <input
+                       type="text"
+                       placeholder="Nombre de tu acompañante"
+                       value={nombreAcompanante}
+                       onChange={(e) => setNombreAcompanante(e.target.value)}
+                       disabled={loading}
+                       style={{ marginTop: '0' }}
+                     />
+                   </div>
+                )}
                 <button type="submit" className="rsvp-btn" disabled={loading}>
                   {loading ? "Procesando..." : "Confirmar asistencia"}
                 </button>

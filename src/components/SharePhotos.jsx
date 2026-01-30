@@ -209,7 +209,7 @@ export default function SharePhotos({ guestId, guestName }) {
                 </p>
 
                 {/* DESCRIPCIÓN */}
-                <p style={{
+                <p className="font-cormorant" style={{
                     fontFamily: "'Montserrat', sans-serif",
                     fontSize: "1.1rem",
                     color: "var(--color-primary)",
