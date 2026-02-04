@@ -1,4 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+
+@font-face {
+  font-family: "TTNorms";
+  src: url("/assets/fonts/TTNorms-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
 /* ---------- RESET ---------- */
 @font-face {
   font-family: "Amsterdam Three";
@@ -65,7 +72,7 @@ body {
 
 /* Utility for specific font request */
 .font-cormorant {
-  font-family: 'Cormorant Garamond', serif !important;
+  font-family: 'TTNorms', sans-serif !important;
 }
 
 /* ---------- NAVBAR ---------- */
@@ -739,7 +746,7 @@ body.menu-open {
 }
 
 .hotel-nombre {
-  font-family: "Cormorant Garamond", serif;
+  font-family: "TTNorms", sans-serif;
   font-size: 1.4rem;
   font-weight: 600;
   color: var(--color-primary);
@@ -1207,7 +1214,7 @@ body.menu-open {
 }
 
 .qr-label {
-  font-family: "Cormorant Garamond", serif;
+  font-family: "TTNorms", sans-serif;
   font-size: 1.2rem;
   color: var(--color-primary);
   margin-bottom: 10px;
@@ -1291,7 +1298,7 @@ button,
 }
 
 .confirm-title {
-  font-family: "Cormorant Garamond", serif;
+  font-family: "TTNorms", sans-serif;
   font-size: 2.4rem;
   color: var(--color-primary);
   font-weight: 600;

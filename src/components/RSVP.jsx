@@ -6,8 +6,8 @@ import QRDisplay from "./QRDisplay";
 const invitadosPermitidos = [
   { nombre: "Olger Victor Ríos", max: 1 },
   { nombre: "María Del Carmen Pacheco Pacheco", max: 1 },
-  { nombre: "Javier Alexander Ríos Pacheco", max: 2 },
-  { nombre: "Jairo Fabian Saltos Castro", max: 2 },
+  { nombre: "Javier Alexander Ríos Pacheco", max: 2, acompanante: "Diana Contreras Villacís" },
+  { nombre: "Jairo Fabian Saltos Castro", max: 2, acompanante: "Jeannethe Gisella Ríos Pacheco" },
   { nombre: "Juan Carlos Camposano Macías", max: 1 },
   { nombre: "Kaira Antonella Mendoza Zambrano", max: 1 },
   { nombre: "Ronald Joel García Arcos", max: 1 },
@@ -25,7 +25,7 @@ const invitadosPermitidos = [
   { nombre: "Irma Aracely Merchán Zambrano", max: 1 },
   { nombre: "Carlos Armando Salazar Jaramillo", max: 1 },
   { nombre: "Josué Armando Salazar Merchán", max: 1 },
-  { nombre: "David Isaac Alvarado Merchán", max: 1 },
+  { nombre: "David Isaac Alvarado Merchán", max: 2 },
   { nombre: "Olga Dolores Merchán Zambrano", max: 2 },
   { nombre: "Natacha Coromoto Holguín Rangel", max: 2 },
   { nombre: "Adriana Elizabeth Castillo Vallejo", max: 1 },
@@ -36,7 +36,7 @@ const invitadosPermitidos = [
   { nombre: "Gema María Delgado Chávez", max: 2 },
   { nombre: "Santa Trinidad Zambrano Solórzano", max: 1 },
   { nombre: "Karla Mariela Macías Burgos", max: 2 },
-  { nombre: "Cristina Mariana Párraga Roca", max: 1 },
+  { nombre: "Cristina Mariana Párraga Roca", max: 2 },
 ];
 
 /* NORMALIZAR TEXTO */
@@ -106,9 +106,13 @@ export default function RSVP({ onLogin }) {
         const n2 = data.qr_code && data.qr_code.includes('&n2=') ? decodeURIComponent(data.qr_code.split('&n2=')[1]) : "";
         const qrText = `${BASE_URL}/confirmacion?id=${storedId}${n2 ? '&n2='+encodeURIComponent(n2) : ''}`;
         
-        const nombreDisplay = n2 ? `${toTitleCase(storedName)} y ${toTitleCase(n2)}` : toTitleCase(storedName);
+        const nombre1 = toTitleCase(storedName);
+        const nombre2 = n2 ? toTitleCase(n2) : null;
+        
+        // Pass complete string for file name, but keep individual names for UI
+        const nombreDisplay = nombre2 ? `${nombre1} y ${nombre2}` : nombre1;
 
-        setQrData({ value: data.qr_code || qrText, nombre: nombreDisplay });
+        setQrData({ value: data.qr_code || qrText, nombre: nombreDisplay, nombre1, nombre2 });
       } catch (err) {
         console.error("RSVP: Error validating session", err);
       }
@@ -116,6 +120,16 @@ export default function RSVP({ onLogin }) {
 
     validateSession();
   }, [onLogin]);
+
+  // Effect to auto-fill companion name if defined in guest list
+  useEffect(() => {
+    if (nombre.length > 5) {
+      const invitado = obtenerInvitado(normalizarTexto(nombre));
+      if (invitado && invitado.acompanante && parseInt(invitados) === 2) {
+        setNombreAcompanante(invitado.acompanante);
+      }
+    }
+  }, [nombre, invitados]);
 
   /* 🟢 ASISTIRÉ */
   const handleSubmit = async (e) => {
@@ -158,6 +172,17 @@ export default function RSVP({ onLogin }) {
         return;
       }
 
+      // If pre-defined companion exists, force it? Or just ensure it's used?
+      // User said: "valida que si el nombre del acompañante ya esta dentro del segundo pase sea ese el que se vaya a ingresar"
+      if (invitado.acompanante && Number(invitados) === 2) {
+         if (normalizarTexto(nombreAcompanante) !== normalizarTexto(invitado.acompanante)) {
+             // If user tried to change it, maybe we warn or just correct it?
+             // Let's correct it silently or warn. The effect should have filled it.
+             // But if they customized it, we might want to respect the predefined one per user request.
+             // We'll enforce the predefined one.
+         }
+      }
+
       /* 🔍 BUSCAR SI YA EXISTE */
       const { data: existente, error: errorBusqueda } = await supabase
         .from("rsvp")
@@ -168,56 +193,48 @@ export default function RSVP({ onLogin }) {
       if (errorBusqueda) throw errorBusqueda;
 
       const BASE_URL = window.location.origin;
+      // Determine final companion name
+      const finalCompanionName = (Number(invitados) === 2) 
+          ? (invitado.acompanante || nombreAcompanante) 
+          : "";
 
       if (existente) {
-        // Si ya existe y tenía invitados > 0, mostramos QR
-        if (existente.invitados > 0) {
-          console.log("RSVP: User already exists, restoring session via onLogin");
-          if (onLogin) onLogin(existente.id, existente.nombre);
+        // Siempre actualizamos para permitir cambios (ej. agregar acompañante)
+        console.log("RSVP: Updating existing registration");
+        
+        const { error: updateError } = await supabase
+          .from("rsvp")
+          .update({
+            invitados: Number(invitados),
+            qr_code: null, // Temporary reset
+            asistira: true // ✅ Confirmado
+          })
+          .eq("id", existente.id);
 
-          const n2 = existente.qr_code && existente.qr_code.includes('&n2=') ? decodeURIComponent(existente.qr_code.split('&n2=')[1]) : "";
-          const nombreDisplay = n2 ? `${toTitleCase(existente.nombre)} y ${toTitleCase(n2)}` : toTitleCase(existente.nombre);
-          
-          const qrText = existente.qr_code || `${BASE_URL}/confirmacion?id=${existente.id}${n2 ? '&n2='+encodeURIComponent(n2) : ''}`;
-          setQrData({ value: qrText, nombre: nombreDisplay });
-          setMensaje("Ya te encuentras registrado");
-        } else {
-          // Si existía con 0 invitados (había dicho que no), le permitimos cambiar a sí?
-          // Supongamos que sí, actualizamos.
-          // Ojo: Si ya existe, el original solo mostraba QR. 
-          // Aquí si quiere cambiar de NO a SI, deberíamos hacer update.
-          // Para simplificar, si ya existe, asumimos update si el usuario está en el form de "Asistiré".
+        if (updateError) throw updateError;
 
-          // Vamos a actualizar si ya existe para permitir cambios de opinión
-          const { error: updateError } = await supabase
-            .from("rsvp")
-            .update({
-              invitados: Number(invitados),
-              qr_code: null,
-              asistira: true // ✅ Confirmado
-            }) // Reset QR si cambia algo? Mejor generamos nuevo o actualizamos.
-            .eq("id", existente.id);
+        // Generar QR nuevo con el acompañante actualizado
+        const qrText = `${BASE_URL}/confirmacion?id=${existente.id}&n2=${encodeURIComponent(finalCompanionName)}`;
+        await supabase.from("rsvp").update({ qr_code: qrText }).eq("id", existente.id);
 
-          if (updateError) throw updateError;
+        // 💾 Save to localStorage
+        if (onLogin) onLogin(existente.id, existente.nombre);
 
-          // Generar QR para este existing
-          // Generar QR para este existing
-          const qrText = `${BASE_URL}/confirmacion?id=${existente.id}&n2=${encodeURIComponent(nombreAcompanante || "")}`;
-          await supabase.from("rsvp").update({ qr_code: qrText }).eq("id", existente.id);
+        const nombreCapitalizado = toTitleCase(nombreNormalizado);
+        const nombreAcompananteCapitalizado = toTitleCase(finalCompanionName);
+        
+        const nombreDisplay = nombreAcompananteCapitalizado 
+          ? `${nombreCapitalizado} y ${nombreAcompananteCapitalizado}` 
+          : nombreCapitalizado;
 
-          // 💾 Save to localStorage for photo upload
-          if (onLogin) onLogin(existente.id, existente.nombre);
-
-          const nombreCapitalizado = toTitleCase(nombreNormalizado);
-          const nombreAcompananteCapitalizado = toTitleCase(nombreAcompanante);
-          
-          const nombreDisplay = nombreAcompananteCapitalizado 
-            ? `${nombreCapitalizado} y ${nombreAcompananteCapitalizado}` 
-            : nombreCapitalizado;
-
-          setQrData({ value: qrText, nombre: nombreDisplay });
-          setMensaje(`Registro actualizado. ${invitados} pase(s) confirmados.`);
-        }
+        setQrData({ 
+            value: qrText, 
+            nombre: nombreDisplay, 
+            nombre1: nombreCapitalizado, 
+            nombre2: nombreAcompananteCapitalizado 
+        });
+        
+        setMensaje(`Registro actualizado. ${invitados} pase(s) confirmados.`);
         return;
       }
 
@@ -234,19 +251,19 @@ export default function RSVP({ onLogin }) {
 
       if (error) throw error;
 
-      const qrText = `${BASE_URL}/confirmacion?id=${data.id}&n2=${encodeURIComponent(nombreAcompanante || "")}`;
+      const qrText = `${BASE_URL}/confirmacion?id=${data.id}&n2=${encodeURIComponent(finalCompanionName)}`;
       await supabase.from("rsvp").update({ qr_code: qrText }).eq("id", data.id);
 
       // 💾 Save to localStorage for photo upload
       if (onLogin) onLogin(data.id, nombreNormalizado);
 
       const nombreCapitalizado = toTitleCase(nombreNormalizado);
-      const nombreAcompananteCapitalizado = toTitleCase(nombreAcompanante);
+      const nombreAcompananteCapitalizado = toTitleCase(finalCompanionName);
        const nombreDisplay = nombreAcompananteCapitalizado 
         ? `${nombreCapitalizado} y ${nombreAcompananteCapitalizado}` 
         : nombreCapitalizado;
 
-      setQrData({ value: qrText, nombre: nombreDisplay });
+      setQrData({ value: qrText, nombre: nombreDisplay, nombre1: nombreCapitalizado, nombre2: nombreAcompananteCapitalizado });
       setMensaje(`Registro exitoso. ${invitados} pase(s) confirmados.`);
       setNombre("");
       setInvitados(1);
@@ -348,8 +365,24 @@ export default function RSVP({ onLogin }) {
           <h2 className="confirm-title">¡Gracias por confirmar!</h2>
           <p className="confirm-sub">Presenta este código el día del evento</p>
           <div className="qr-card">
-            <QRDisplay value={qrData.value} label="Tu código de acceso" />
-            <p><strong>Nombre:</strong> {qrData.nombre}</p>
+            <QRDisplay 
+              value={qrData.value} 
+              label="Tu código de acceso" 
+              nombre={qrData.nombre}
+              nombre1={qrData.nombre1}
+              nombre2={qrData.nombre2}
+            />
+
+            <div style={{ marginTop: '15px', textAlign: 'left', width: '100%' }}>
+                <p style={{ marginBottom: '5px', fontSize: '1.1rem' }}>
+                    <strong>Primer pase:</strong> {qrData.nombre1}
+                </p>
+                {qrData.nombre2 && (
+                    <p style={{ marginBottom: '5px', fontSize: '1.1rem' }}>
+                        <strong>Segundo pase:</strong> {qrData.nombre2}
+                    </p>
+                )}
+            </div>
           </div>
           <div className="qr-actions">
             <button className="qr-btn" onClick={addToCalendar}>Añadir al calendario</button>
@@ -403,16 +436,24 @@ export default function RSVP({ onLogin }) {
                 {parseInt(invitados) > 1 && (
                    <div style={{ marginTop: '15px' }}>
                      <label style={{ display: 'block', marginBottom: '5px', fontSize: '0.9rem', color: '#666' }}>
-                       Nombre del Acompañante (Opcional):
+                       Nombre del Acompañante:
                      </label>
                      <input
                        type="text"
                        placeholder="Nombre de tu acompañante"
                        value={nombreAcompanante}
                        onChange={(e) => setNombreAcompanante(e.target.value)}
-                       disabled={loading}
-                       style={{ marginTop: '0' }}
+                       disabled={loading || (obtenerInvitado(normalizarTexto(nombre))?.acompanante && true)}
+                       style={{ 
+                           marginTop: '0', 
+                           background: (obtenerInvitado(normalizarTexto(nombre))?.acompanante) ? '#f0f0f0' : 'white' 
+                       }}
                      />
+                     {obtenerInvitado(normalizarTexto(nombre))?.acompanante && (
+                         <small style={{ color: '#888', display: 'block', marginTop: '5px' }}>
+                             * Acompañante preasignado
+                         </small>
+                     )}
                    </div>
                 )}
                 <button type="submit" className="rsvp-btn" disabled={loading}>

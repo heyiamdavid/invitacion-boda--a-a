@@ -218,9 +218,21 @@ function GuestListSection({ guestData }) {
             </tr>
           </thead>
           <tbody>
-            {currentList.map((guest) => (
+            {currentList.map((guest) => {
+              // Extract n2 from qr_code if available
+              let n2 = "";
+              if (guest.qr_code && guest.qr_code.includes("&n2=")) {
+                 n2 = decodeURIComponent(guest.qr_code.split("&n2=")[1]);
+              }
+              
+              return (
               <tr key={guest.id}>
-                <td className="guest-name">{guest.nombre}</td>
+                <td className="guest-name">
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span><strong>1:</strong> {guest.nombre}</span>
+                        {n2 && <span style={{ fontSize: '0.85rem', color: '#666' }}><strong>2:</strong> {n2}</span>}
+                    </div>
+                </td>
                 <td>{guest.invitados}</td>
                 <td>{new Date(guest.created_at).toLocaleDateString()}</td>
                 <td>
@@ -237,7 +249,8 @@ function GuestListSection({ guestData }) {
                   )}
                 </td>
               </tr>
-            ))}
+              );
+            })}
           </tbody>
         </table>
         {currentList.length === 0 && (
@@ -258,7 +271,17 @@ function GuestListSection({ guestData }) {
               </h2>
               <QRDisplay value={selectedGuest.qr_code} />
               <div style={{ marginTop: '20px', textAlign: 'left', background: '#F5F1E8', padding: '20px', borderRadius: '12px' }}>
-                <p style={{ margin: '8px 0' }}><strong>Nombre:</strong> <span style={{ textTransform: 'capitalize' }}>{selectedGuest.nombre}</span></p>
+                <div style={{ marginBottom: '8px' }}>
+                    <strong>Nombre:</strong> 
+                    <div style={{ paddingLeft: '10px', marginTop: '4px' }}>
+                        <p style={{ margin: '2px 0' }}>1: <span style={{ textTransform: 'capitalize' }}>{selectedGuest.nombre}</span></p>
+                        {selectedGuest.qr_code && selectedGuest.qr_code.includes("&n2=") && (
+                            <p style={{ margin: '2px 0' }}>2: <span style={{ textTransform: 'capitalize' }}>
+                                {decodeURIComponent(selectedGuest.qr_code.split("&n2=")[1])}
+                            </span></p>
+                        )}
+                    </div>
+                </div>
                 <p style={{ margin: '8px 0' }}><strong>Pases:</strong> {selectedGuest.invitados}</p>
                 <p style={{ margin: '8px 0' }}><strong>Fecha de registro:</strong> {new Date(selectedGuest.created_at).toLocaleDateString()}</p>
                 <p style={{ margin: '8px 0' }}><strong>Estado:</strong> {selectedGuest.asistira ? '✅ Confirmado' : '❌ No confirmado'}</p>
