@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import QRScanner from "./QRScanner";
 import QRDisplay from "./QRDisplay";
-import { FaUsers, FaQrcode, FaImages, FaUserCheck, FaUserTimes, FaUserClock, FaDownload, FaCheckSquare, FaSquare } from "react-icons/fa";
+import { FaUsers, FaQrcode, FaImages, FaUserCheck, FaUserTimes, FaUserClock, FaDownload, FaCheckSquare, FaSquare, FaCheckCircle } from "react-icons/fa";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import "../styles/admin.css";
@@ -12,14 +12,16 @@ export default function AdminDashboard() {
   const [guestData, setGuestData] = useState({
     confirmed: [],
     pending: [],
-    declined: []
+    declined: [],
+    attended: []
   });
   const [photos, setPhotos] = useState([]);
   const [stats, setStats] = useState({
     totalConfirmed: 0,
     totalPasses: 0,
     totalDeclined: 0,
-    totalPhotos: 0
+    totalPhotos: 0,
+    totalCheckedIn: 0
   });
 
   useEffect(() => {
@@ -38,15 +40,17 @@ export default function AdminDashboard() {
     const confirmed = data.filter(g => g.asistira === true && g.invitados > 0);
     const declined = data.filter(g => g.asistira === false);
     const pending = data.filter(g => g.asistira === null || (g.asistira === true && g.invitados === 0));
+    const attended = data.filter(g => g.asistio === true);
 
     const totalPasses = confirmed.reduce((sum, g) => sum + g.invitados, 0);
 
-    setGuestData({ confirmed, pending, declined });
+    setGuestData({ confirmed, pending, declined, attended });
     setStats({
       totalConfirmed: confirmed.length,
       totalPasses,
       totalDeclined: declined.length,
-      totalPhotos: 0 // Will be updated by fetchPhotos
+      totalPhotos: 0, // Will be updated by fetchPhotos
+      totalCheckedIn: attended.length
     });
   };
 
@@ -116,6 +120,16 @@ export default function AdminDashboard() {
             <span className="stat-detail">{stats.totalPasses} pases totales</span>
           </div>
         </div>
+        
+        <div className="stat-card attended" style={{ borderLeft: "4px solid #4CAF50" }}>
+          <FaCheckCircle className="stat-icon" style={{ color: "#4CAF50" }} />
+          <div className="stat-content">
+            <h3>{stats.totalCheckedIn}</h3>
+            <p>Ya Asistieron</p>
+            <span className="stat-detail">Hicieron Check-in</span>
+          </div>
+        </div>
+
         <div className="stat-card declined">
           <FaUserTimes className="stat-icon" />
           <div className="stat-content">
@@ -194,6 +208,13 @@ function GuestListSection({ guestData }) {
           Confirmados ({guestData.confirmed.length})
         </button>
         <button
+          className={`filter-btn ${filter === "attended" ? "active" : ""}`}
+          onClick={() => setFilter("attended")}
+          style={{ borderBottom: filter === "attended" ? "2px solid #4CAF50" : "none", color: filter === "attended" ? "#4CAF50" : "inherit" }}
+        >
+          Asistieron ({guestData.attended.length})
+        </button>
+        <button
           className={`filter-btn ${filter === "pending" ? "active" : ""}`}
           onClick={() => setFilter("pending")}
         >
@@ -213,6 +234,7 @@ function GuestListSection({ guestData }) {
             <tr>
               <th>Nombre</th>
               <th>Pases</th>
+              <th>Estado</th>
               <th>Fecha Registro</th>
               <th>QR</th>
             </tr>
@@ -226,7 +248,7 @@ function GuestListSection({ guestData }) {
               }
               
               return (
-              <tr key={guest.id}>
+              <tr key={guest.id} style={{ backgroundColor: guest.asistio ? "rgba(76, 175, 80, 0.1)" : "transparent" }}>
                 <td className="guest-name">
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <span><strong>1:</strong> {guest.nombre}</span>
@@ -234,6 +256,15 @@ function GuestListSection({ guestData }) {
                     </div>
                 </td>
                 <td>{guest.invitados}</td>
+                <td>
+                    {guest.asistio ? (
+                        <span style={{ color: "green", fontWeight: "bold", display: "flex", alignItems: "center", gap: "5px" }}>
+                            <FaCheckCircle /> Checked-in
+                        </span>
+                    ) : (
+                        <span style={{ color: "#666" }}>Pendiente</span>
+                    )}
+                </td>
                 <td>{new Date(guest.created_at).toLocaleDateString()}</td>
                 <td>
                   {guest.qr_code ? (
@@ -285,6 +316,7 @@ function GuestListSection({ guestData }) {
                 <p style={{ margin: '8px 0' }}><strong>Pases:</strong> {selectedGuest.invitados}</p>
                 <p style={{ margin: '8px 0' }}><strong>Fecha de registro:</strong> {new Date(selectedGuest.created_at).toLocaleDateString()}</p>
                 <p style={{ margin: '8px 0' }}><strong>Estado:</strong> {selectedGuest.asistira ? '✅ Confirmado' : '❌ No confirmado'}</p>
+                {selectedGuest.asistio && <p style={{ margin: '8px 0', color: "green", fontWeight: "bold" }}><strong>Check-in:</strong> ✅ Sí</p>}
               </div>
             </div>
           </div>

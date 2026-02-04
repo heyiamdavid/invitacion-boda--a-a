@@ -148,18 +148,14 @@ export default function RSVP({ onLogin }) {
       const partes = nombreNormalizado.split(" ");
 
       /* VALIDACIONES */
-      if (partes.length < 3) { // Flexibilizamos un poco a 3 palabras mínimo por si acaso
-        // O mantenemos estricto 4? El original decía !== 4. Mantengamos original mejor.
-        if (partes.length !== 4) {
-          setMensaje("Ingresa exactamente 2 nombres y 2 apellidos");
-          return;
-        }
-      } else {
-        if (partes.length !== 4) {
-          setMensaje("Ingresa exactamente 2 nombres y 2 apellidos");
-          return;
-        }
+      /* VALIDACIONES */
+      if (partes.length < 3) { 
+        setMensaje("Por favor ingresa tu nombre completo (mínimo 3 palabras)");
+        return;
       }
+      
+      // Eliminamos la restricción estricta de 4 palabras para permitir casos de 3 o 5+ palabras
+      // if (partes.length !== 4) { ... }
 
       const invitado = obtenerInvitado(nombreNormalizado);
       if (!invitado) {
@@ -412,7 +408,7 @@ export default function RSVP({ onLogin }) {
               <form className="rsvp-form" onSubmit={handleSubmit}>
                 <input
                   type="text"
-                  placeholder="Ej: Juan Carlos Pérez López (2 Nombres 2 Apellidos)"
+                  placeholder="Ej: Juan Carlos Pérez López (Nombre Completo)"
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
                   disabled={loading}
@@ -479,7 +475,7 @@ export default function RSVP({ onLogin }) {
               <form className="rsvp-form" onSubmit={handleNotAttendingSubmit}>
                 <input
                   type="text"
-                  placeholder="Ingresa tu nombre completo (2 Nombres 2 Apellidos)"
+                  placeholder="Ingresa tu nombre completo"
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
                   disabled={loading}
