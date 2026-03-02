@@ -37,6 +37,9 @@ const invitadosPermitidos = [
   { nombre: "Santa Trinidad Zambrano Solórzano", max: 1 },
   { nombre: "Karla Mariela Macías Burgos", max: 2 },
   { nombre: "Cristina Mariana Párraga Roca", max: 2 },
+  { nombre: "Anthony Andres Mera Vásquez", max: 2 },
+  { nombre: "Carlos Bolivar Flores Martínez", max: 2 },
+  { nombre: "Camilo Andrés Escobar Zambrano", max: 1 },
 ];
 
 /* NORMALIZAR TEXTO */
