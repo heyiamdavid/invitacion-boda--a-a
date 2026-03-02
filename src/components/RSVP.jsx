@@ -411,7 +411,7 @@ export default function RSVP({ onLogin }) {
               <form className="rsvp-form" onSubmit={handleSubmit}>
                 <input
                   type="text"
-                  placeholder="Ej: Juan Carlos Pérez López (Nombre Completo)"
+                  placeholder="Ej: Juan Carlos Pérez López (Nombres Completos)"
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
                   disabled={loading}
