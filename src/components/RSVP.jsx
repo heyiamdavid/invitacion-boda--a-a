@@ -41,6 +41,7 @@ const invitadosPermitidos = [
   { nombre: "Carlos Bolivar Flores Martínez", max: 2 },
   { nombre: "Camilo Andrés Escobar Zambrano", max: 1 },
   { nombre: "Génesis Súarez Chancay", max: 2 },
+  { nombre: "José Luis Monar Jaime", max: 1}
 ];
 
 /* NORMALIZAR TEXTO */
